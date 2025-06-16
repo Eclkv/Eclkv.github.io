@@ -113,7 +113,7 @@ nav .container {
   margin-bottom: 20px;
   background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: #333333;
   background-clip: text;
   line-height: 1.1;
 }
