@@ -111,12 +111,14 @@ nav .container {
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 800;
   margin-bottom: 20px;
-  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+  /* OPTION 2: Gradient vert/cyan plus visible */
+  background: linear-gradient(135deg, var(--accent-color), var(--gradient-end));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1.1;
 }
+
 
 .hero-subtitle {
   font-size: 1.5rem;
