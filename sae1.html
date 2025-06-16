@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 1.01 – Hygiène informatique | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(255, 68, 68, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .sae-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #ff4444, #ff6666);
+    }
+    .deliverable h4 {
+      color: #ff4444;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .challenge {
+      background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(255, 102, 102, 0.05));
+      border: 1px solid rgba(255, 68, 68, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 {
+      color: #ff4444;
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .video-placeholder {
+      background: var(--secondary-bg);
+      border: 2px dashed var(--border-color);
+      border-radius: 15px;
+      padding: 40px;
+      text-align: center;
+      margin: 30px 0;
+      color: var(--text-secondary);
+    }
+    .research-section {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 25px 0;
+    }
+    .attack-example {
+      background: rgba(255, 68, 68, 0.1);
+      border-left: 4px solid #ff4444;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 0 10px 10px 0;
+    }
+    .solution-example {
+      background: rgba(76, 175, 80, 0.1);
+      border-left: 4px solid #4caf50;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 0 10px 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="portfolio_html_corrected.html#accueil">Accueil</a></li>
+        <li><a href="portfolio_html_corrected.html#bio">À propos</a></li>
+        <li><a href="portfolio_html_corrected.html#sae">SAE</a></li>
+        <li><a href="portfolio_html_corrected.html#projets">Projets</a></li>
+        <li><a href="portfolio_html_corrected.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🎥 Vidéo explicative</div>
+          <div class="meta-item">📅 Semestre 1</div>
+          <div class="meta-item">⏱️ 20 heures</div>
+          <div class="meta-item">👥 Individuel</div>
+        </div>
+        <h1>SAE 1.01 – Hygiène informatique</h1>
+        <p class="hero-description">
+          Création d'une vidéo de sensibilisation à l'hygiène informatique, basée sur des recherches approfondies sur les cyberattaques courantes et les solutions de protection accessibles.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">Recherche documentaire</span>
+          <span class="skill-tag">Vulgarisation</span>
+          <span class="skill-tag">Création vidéo</span>
+          <span class="skill-tag">Sensibilisation</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        L'objectif de cette SAE était de sensibiliser le grand public à l'importance de l'hygiène informatique 
+        à travers la création d'une vidéo explicative. Le projet consistait à effectuer des recherches sur 
+        les principales menaces informatiques actuelles, puis à présenter des solutions simples et accessibles 
+        pour s'en protéger.
+      </p>
+      
+      <div class="challenge">
+        <h4>🎯 Défi principal</h4>
+        <p>
+          Transformer des concepts techniques complexes en contenu accessible et engageant, 
+          tout en conservant la précision des informations pour créer une vidéo de sensibilisation efficace.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Livrable Principal</h2>
+      
+      <div class="deliverable light-effect">
+        <h4>🎥 Vidéo explicative sur l'hygiène informatique</h4>
+        <p><strong>Format :</strong> Vidéo de 8-10 minutes avec voix-off et supports visuels</p>
+        <p><strong>Contenu :</strong> Présentation des principales menaces (phishing, malware, mots de passe faibles) et des solutions pratiques pour s'en protéger</p>
+        <p><strong>Public cible :</strong> Utilisateurs non-techniques souhaitant améliorer leur sécurité numérique</p>
+        
+        <div class="video-placeholder">
+          <p>📹 Vidéo de sensibilisation à l'hygiène informatique</p>
+          <p><em>Durée : ~9 minutes | Format : MP4</em></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Recherches Effectuées</h2>
+      
+      <div class="research-section">
+        <h3>🔍 Analyse des Menaces Courantes</h3>
+        <p>J'ai effectué des recherches approfondies sur les cyberattaques les plus fréquentes touchant les particuliers :</p>
+        
+        <div class="attack-example">
+          <h4>📧 Phishing et ingénierie sociale</h4>
+          <p>Étude des techniques utilisées dans les emails frauduleux, analyse d'exemples concrets et identification des signaux d'alerte.</p>
+        </div>
+
+        <div class="attack-example">
+          <h4>🦠 Malwares et ransomwares</h4>
+          <p>Recherche sur les modes de propagation, les dégâts causés et les secteurs les plus touchés.</p>
+        </div>
+
+        <div class="attack-example">
+          <h4>🔑 Attaques par force brute sur mots de passe</h4>
+          <p>Analyse des statistiques sur les mots de passe les plus utilisés et leur temps de piratage.</p>
+        </div>
+
+        <div class="attack-example">
+          <h4>📱 Sécurité des réseaux WiFi publics</h4>
+          <p>Étude des risques liés aux connexions non sécurisées et des techniques d'interception.</p>
+        </div>
+      </div>
+
+      <div class="research-section">
+        <h3>✅ Solutions de Protection Identifiées</h3>
+        <p>Pour chaque menace identifiée, j'ai recherché des solutions simples et gratuites :</p>
+        
+        <div class="solution-example">
+          <h4>🛡️ Protection contre le phishing</h4>
+          <p>Vérification des URLs, attention aux fautes d'orthographe, vérification de l'expéditeur, utilisation des filtres anti-spam.</p>
+        </div>
+
+        <div class="solution-example">
+          <h4>🔐 Gestionnaires de mots de passe gratuits</h4>
+          <p>Comparaison entre Bitwarden, LastPass (version gratuite) et KeePass pour créer et stocker des mots de passe robustes.</p>
+        </div>
+
+        <div class="solution-example">
+          <h4>🔄 Mises à jour de sécurité</h4>
+          <p>Importance des mises à jour automatiques du système et des logiciels, configuration recommandée.</p>
+        </div>
+
+        <div class="solution-example">
+          <h4>📶 Navigation sécurisée</h4>
+          <p>Utilisation de VPN gratuits, vérification HTTPS, prudence sur les réseaux publics.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🔍 Recherche documentaire</h3>
+          <p>Capacité à identifier des sources fiables et à synthétiser des informations techniques complexes.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🎯 Vulgarisation</h3>
+          <p>Aptitude à expliquer des concepts techniques de manière accessible sans perdre en précision.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🎥 Communication visuelle</h3>
+          <p>Création de contenu vidéo engageant avec une structure pédagogique claire.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🛡️ Sensibilisation sécuritaire</h3>
+          <p>Compréhension des enjeux de cybersécurité pour le grand public et des solutions pratiques.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bilan Personnel</h2>
+      <p>
+        Cette SAE m'a permis de découvrir l'importance de la sensibilisation en cybersécurité. 
+        J'ai réalisé que la plupart des attaques exploitent des failles humaines plutôt que techniques, 
+        d'où l'importance de l'éducation et de la prévention.
+      </p>
+      <p>
+        Le processus de vulgarisation m'a également aidé à mieux comprendre ces concepts moi-même. 
+        Expliquer simplement des notions complexes demande une maîtrise approfondie du sujet, 
+        ce qui m'a poussé à approfondir mes recherches.
+      </p>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 2.01 – Construire un réseau | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(255, 68, 68, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .sae-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #ff4444, #ff6666);
+    }
+    .deliverable h4 {
+      color: #ff4444;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .challenge {
+      background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(255, 102, 102, 0.05));
+      border: 1px solid rgba(255, 68, 68, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 {
+      color: #ff4444;
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .network-diagram {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 25px 0;
+      text-align: center;
+    }
+    .vlan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .vlan-item {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+    .vlan-100 { border-left: 4px solid #4CAF50; }
+    .vlan-200 { border-left: 4px solid #2196F3; }
+    .vlan-300 { border-left: 4px solid #FF9800; }
+    .vlan-999 { border-left: 4px solid #9C27B0; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="portfolio_html_corrected.html#accueil">Accueil</a></li>
+        <li><a href="portfolio_html_corrected.html#bio">À propos</a></li>
+        <li><a href="portfolio_html_corrected.html#sae">SAE</a></li>
+        <li><a href="portfolio_html_corrected.html#projets">Projets</a></li>
+        <li><a href="portfolio_html_corrected.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🌐 Réseau local</div>
+          <div class="meta-item">📅 Semestre 2 - RT11</div>
+          <div class="meta-item">⚙️ GNS3</div>
+          <div class="meta-item">👤 Travail individuel</div>
+        </div>
+        <h1>SAE 2.01 – Construire un réseau</h1>
+        <p class="hero-description">
+          Configuration d'un réseau d'entreprise avec segmentation VLAN, routage inter-VLAN et déploiement de services réseau en utilisant GNS3.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">VLAN</span>
+          <span class="skill-tag">Routage</span>
+          <span class="skill-tag">GNS3</span>
+          <span class="skill-tag">RIP v2</span>
+          <span class="skill-tag">ACL</span>
+          <span class="skill-tag">DHCP</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Cette SAE avait pour objectif de consolider les compétences sur le matériel réseau de niveau 2 (commutateurs) et 3 (routeurs). 
+        Le projet consistait à construire un réseau local avec des commutateurs et routeurs, et mettre en place des règles de sécurité simples.
+      </p>
+      
+      <div class="challenge">
+        <h4>🎯 Contraintes du projet</h4>
+        <p>
+          Partage du réseau 192.168.32.0/20 entre l'ensemble des étudiants du groupe RT11 (32 personnes), 
+          avec segmentation individuelle et attribution de sous-réseaux pour chaque VLAN et service.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Architecture Réseau Mise en Place</h2>
+      
+      <div class="network-diagram">
+        <h4>📊 Topologie du réseau</h4>
+        <p>Réseau basé sur la topologie fournie avec commutateurs, routeurs et serveurs dédiés</p>
+      </div>
+
+      <div class="vlan-grid">
+        <div class="vlan-item vlan-100">
+          <h5>VLAN 100</h5>
+          <p>Administration</p>
+          <small>4 adresses réservées</small>
+        </div>
+        <div class="vlan-item vlan-200">
+          <h5>VLAN 200</h5>
+          <p>Développeurs</p>
+          <small>4 adresses réservées</small>
+        </div>
+        <div class="vlan-item vlan-300">
+          <h5>VLAN 300</h5>
+          <p>Administrateurs</p>
+          <small>4 adresses réservées</small>
+        </div>
+        <div class="vlan-item vlan-999">
+          <h5>VLAN 999</h5>
+          <p>VLAN Natif</p>
+          <small>Sécurisé et tagué</small>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Réalisations Techniques</h2>
+      
+      <div class="deliverable light-effect">
+        <h4>📐 Segmentation réseau et adressage VLSM</h4>
+        <p><strong>Objectif :</strong> Diviser le réseau 192.168.32.0/20 entre 32 étudiants avec masque variable.</p>
+        <p><strong>Réalisation :</strong> Calcul de la segmentation pour obtenir un sous-réseau individuel, puis subdivision en sous-réseaux pour chaque VLAN (Administration, Développeurs, Administrateurs) et la partie production. Utilisation de masques /30 pour les interconnexions entre équipements de niveau 3.</p>
+        <p><strong>Résultat :</strong> Plan d'adressage optimisé avec 4 adresses par VLAN et adresses fixes pour les serveurs.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🔀 Configuration des VLANs et Spanning Tree</h4>
+        <p><strong>Objectif :</strong> Créer la segmentation logique avec gestion centralisée sur commutateur-fed.</p>
+        <p><strong>Réalisation :</strong> Configuration des VLANs 100, 200, 300 avec routage inter-VLAN centralisé. Déplacement du VLAN natif vers le VLAN 999 avec tagging pour la sécurité. Mise en place de l'équilibrage de charge entre les deux commutateurs avec Spanning Tree sur trois liens, chaque VLAN étant dédié à un lien spécifique.</p>
+        <p><strong>Résultat :</strong> Segmentation fonctionnelle avec redondance et équilibrage de charge.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🚦 Routage RIP v2 et interconnexions</h4>
+        <p><strong>Objectif :</strong> Assurer la connectivité entre tous les segments réseau.</p>
+        <p><strong>Réalisation :</strong> Configuration du protocole RIP v2 pour le routage dynamique entre les équipements de niveau 3. Utilisation de masques /30 pour les liaisons point-à-point entre routeurs. Configuration du routage inter-VLAN sur le commutateur-fed pour permettre la communication entre les différents groupes d'utilisateurs.</p>
+        <p><strong>Résultat :</strong> Connectivité complète avec routage dynamique fonctionnel.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🖥️ Déploiement des services réseau</h4>
+        <p><strong>Objectif :</strong> Installer et configurer les services sur les trois serveurs.</p>
+        <p><strong>Réalisation :</strong> 
+        - <strong>Serveur DHCP :</strong> Configuration pour attribution automatique des adresses IP
+        - <strong>Serveur FTP (Serveur-sauvegarde) :</strong> Déploiement avec accès anonyme et comptes utilisateurs Antoine/Élise
+        - <strong>Serveurs Web :</strong> Installation Apache sur serveur dev et production, modification de la page par défaut et synchronisation avec rsync</p>
+        <p><strong>Résultat :</strong> Services opérationnels avec synchronisation automatique entre environnements.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🔒 Sécurisation du réseau</h4>
+        <p><strong>Objectif :</strong> Implémenter des mesures de sécurité sur l'infrastructure.</p>
+        <p><strong>Réalisation :</strong> 
+        - <strong>Sécurité des ports :</strong> Configuration port-security sur tous les ports des commutateurs pour n'autoriser que la première machine connectée
+        - <strong>ACL Routeur R2 :</strong> Restriction du trafic aux ports HTTP, SSH (22) et rsync (873)
+        - <strong>ACL Routeur de bordure :</strong> Filtrage pour n'autoriser que le trafic ICMP et HTTP depuis l'extérieur</p>
+        <p><strong>Résultat :</strong> Réseau sécurisé avec contrôle d'accès granulaire.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Outils et Technologies</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🖥️ GNS3</h3>
+          <p>Simulation complète de l'infrastructure réseau avec émulation d'équipements Cisco.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>⚙️ Cisco IOS</h3>
+          <p>Configuration des commutateurs et routeurs avec commandes natives Cisco.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔄 Protocoles réseau</h3>
+          <p>Mise en œuvre de RIP v2, Spanning Tree, 802.1Q et services DHCP/DNS.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🛡️ Sécurité</h3>
+          <p>Implémentation d'ACL, port-security et segmentation sécurisée.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <p>
+        Ce projet m'a permis de mettre en pratique les concepts théoriques des cours réseau dans un environnement de simulation réaliste. 
+        La gestion des contraintes d'adressage partagé et la configuration de services multiples m'ont appris l'importance de la planification 
+        et de la documentation dans les projets réseau.
+      </p>
+      <p>
+        L'utilisation de GNS3 m'a familiarisé avec les outils de simulation professionnel, tandis que la configuration manuelle des équipements 
+        Cisco a renforcé ma compréhension des protocoles de niveau 2 et 3. Cette expérience pratique constitue une base solide pour 
+        mes futures spécialisations en administration réseau.
+      </p>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>

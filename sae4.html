@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 1.04 – Se présenter sur internet | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(255, 68, 68, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .sae-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #ff4444, #ff6666);
+    }
+    .deliverable h4 {
+      color: #ff4444;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .challenge {
+      background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(255, 102, 102, 0.05));
+      border: 1px solid rgba(255, 68, 68, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 {
+      color: #ff4444;
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .structure-list {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .structure-list ul {
+      margin: 10px 0;
+    }
+    .structure-list li {
+      margin: 8px 0;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="portfolio_html_corrected.html#accueil">Accueil</a></li>
+        <li><a href="portfolio_html_corrected.html#bio">À propos</a></li>
+        <li><a href="portfolio_html_corrected.html#sae">SAE</a></li>
+        <li><a href="portfolio_html_corrected.html#projets">Projets</a></li>
+        <li><a href="portfolio_html_corrected.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🌐 HTML/CSS</div>
+          <div class="meta-item">📅 Semestre 1</div>
+          <div class="meta-item">⏱️ 20 heures</div>
+          <div class="meta-item">👥 Individuel</div>
+        </div>
+        <h1>SAE 1.04 – Se présenter sur internet</h1>
+        <p class="hero-description">
+          Création d'un CV web multi-pages avec navigation par ancres et liens hypertextes.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">Flexbox</span>
+          <span class="skill-tag">Ancres</span>
+          <span class="skill-tag">CodePen</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Cette SAE consiste à créer une page web de curriculum vitae accompagnée de pages détaillées liées par des ancres. 
+        L'objectif principal est d'apprendre à structurer un site web avec HTML5 sémantique et CSS3, en utilisant 
+        un seul fichier CSS pour toutes les pages.
+      </p>
+      
+      <div class="challenge">
+        <h4>🎯 Contraintes techniques</h4>
+        <p>
+          Réaliser un CV web avec une page principale et au minimum 2 pages de détails, toutes stylisées 
+          avec un unique fichier CSS. Utilisation de liens avec ancres pour la navigation entre les sections 
+          et pages. Développement sur CodePen avec gestion des limitations de liens locaux.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Structure Imposée</h2>
+      
+      <div class="structure-list">
+        <h4>📄 Page principale (CV)</h4>
+        <ul>
+          <li><strong>&lt;header&gt;</strong> : Informations personnelles, photo ronde, résumé professionnel</li>
+          <li><strong>Section Formation</strong> : Résumé avec liens vers page détaillée</li>
+          <li><strong>Section Diplômes</strong> : Liste avec liens vers page détaillée</li>
+          <li><strong>Section Expériences</strong> : Résumé des expériences professionnelles</li>
+          <li><strong>Section Compétences</strong> : 3 Flex items (RT, Techniques, Humaines)</li>
+          <li><strong>Section Informations diverses</strong> : Langues, sports, hobbies</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Réalisations</h2>
+      
+      <div class="deliverable light-effect">
+        <h4>🏗️ Structure HTML5 sémantique</h4>
+        <p><strong>Objectif :</strong> Utiliser les balises HTML5 appropriées pour structurer le CV.</p>
+        <p><strong>Réalisation :</strong> Mise en place d'un header avec informations personnelles et photo, sections distinctes pour chaque partie du CV, utilisation correcte des balises sémantiques (&lt;header&gt;, &lt;section&gt;, &lt;nav&gt;). Intégration de liens mailto et vers Google Maps.</p>
+        <p><strong>Difficultés :</strong> Comprendre la différence entre les balises de structure et leur utilisation appropriée.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🎨 Mise en forme CSS3</h4>
+        <p><strong>Objectif :</strong> Créer un design cohérent avec un seul fichier CSS pour toutes les pages.</p>
+        <p><strong>Réalisation :</strong> Développement d'un système de styles unifié, utilisation de Flexbox pour la section compétences en 3 colonnes, mise en forme de la photo en rond, création d'un design responsive basique. Application du principe DRY (Don't Repeat Yourself) pour les styles.</p>
+        <p><strong>Compétences acquises :</strong> Flexbox, sélecteurs CSS, organisation du code CSS.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🔗 Système de navigation par ancres</h4>
+        <p><strong>Objectif :</strong> Implémenter des liens vers des sections et pages spécifiques.</p>
+        <p><strong>Réalisation :</strong> Création de liens internes avec # pour naviguer dans la même page, liens vers des ancres spécifiques d'autres pages avec la syntaxe fichier.html#ancre, mise en place d'un défilement doux avec scroll-behavior: smooth. Test et validation de tous les liens.</p>
+        <p><strong>Défi technique :</strong> Gestion des limitations de CodePen pour les liens locaux et export final.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📱 Pages de détails</h4>
+        <p><strong>Objectif :</strong> Créer les pages complémentaires avec informations détaillées.</p>
+        <p><strong>Réalisation :</strong> Page détails formation avec spécialités, modules et projets réalisés, page détails diplômes avec liens vers établissements et résultats détaillés, page expériences avec postes occupés et coordonnées entreprises. Toutes les pages utilisent le même CSS.</p>
+        <p><strong>Apprentissage :</strong> Organisation d'un site multi-pages cohérent.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🚀 Développement sur CodePen</h4>
+        <p><strong>Objectif :</strong> Maîtriser l'outil CodePen et ses contraintes.</p>
+        <p><strong>Réalisation :</strong> Création de plusieurs "pens" pour chaque page, gestion des liens entre pens avec target="blank", export et modification des liens pour version finale locale. Renommage intelligent des fichiers (index.html pour la page principale).</p>
+        <p><strong>Contraintes gérées :</strong> Limitations de la version gratuite de CodePen, problème d'imbrication "poupées russes".</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Technologies Utilisées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🔧 HTML5</h3>
+          <p>Balises sémantiques, structure logique, liens hypertextes, ancres, attributs mailto et liens externes.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🎨 CSS3</h3>
+          <p>Flexbox pour la mise en page, pseudo-classes, sélecteurs avancés, scroll-behavior smooth, responsive basique.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🛠️ CodePen</h3>
+          <p>Développement en ligne, gestion de projets multiples, export vers fichiers locaux, tests de liens.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🌐 Navigation Web</h3>
+          <p>Liens internes et externes, ancres, navigation fluide, structure de site web multi-pages.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🏗️ Structure Web</h3>
+          <p>HTML5 sémantique, organisation logique du contenu, hiérarchie des informations.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🎨 Mise en forme</h3>
+          <p>CSS3, Flexbox, design cohérent multi-pages, organisation du code de style.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔗 Navigation</h3>
+          <p>Liens hypertextes, ancres, navigation interne, expérience utilisateur basique.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🛠️ Outils Web</h3>
+          <p>CodePen, export de projets, gestion des contraintes techniques, tests de liens.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Difficultés Rencontrées</h2>
+      <p>
+        La principale difficulté a été la gestion des liens locaux sur CodePen, nécessitant l'utilisation 
+        de l'URL complète des autres "pens" et causant des problèmes d'imbrication. La solution avec 
+        target="blank" permet d'ouvrir les pages dans de nouveaux onglets.
+      </p>
+      <p>
+        L'export final a demandé un travail manuel de modification de tous les liens pour utiliser 
+        les noms de fichiers locaux au lieu des URLs CodePen, ainsi qu'un renommage cohérent des fichiers.
+      </p>
+    </section>
+
+    <section>
+      <h2>Résultats</h2>
+      <p>
+        Le projet a abouti à un CV web fonctionnel composé d'une page principale et de pages détaillées, 
+        toutes reliées par un système de navigation par ancres. Le design est cohérent grâce à l'utilisation 
+        d'un seul fichier CSS.
+      </p>
+      <p>
+        Cette première expérience de développement web m'a permis de comprendre les bases de HTML5 et CSS3, 
+        ainsi que l'importance de la structure et de la navigation dans un site web.
+      </p>
+    </section>
+
+    <section>
+      <h2>Bilan</h2>
+      <p>
+        Cette SAE constitue une excellente introduction au développement web. Elle m'a permis de découvrir 
+        les fondamentaux du HTML et CSS, tout en apprenant à structurer un projet web multi-pages.
+      </p>
+      <p>
+        L'utilisation de CodePen m'a fait comprendre les enjeux du développement web en ligne et 
+        l'importance de maîtriser les outils de développement locaux pour des projets plus complexes.
+      </p>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>

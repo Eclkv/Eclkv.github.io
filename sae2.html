@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 1.02 – S'initier aux réseaux informatiques | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(0, 204, 255, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .sae-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #00ccff, #0099cc);
+    }
+    .deliverable h4 {
+      color: #00ccff;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .challenge {
+      background: linear-gradient(135deg, rgba(0, 204, 255, 0.1), rgba(0, 153, 204, 0.05));
+      border: 1px solid rgba(0, 204, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 {
+      color: #00ccff;
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .topology-diagram {
+      background: var(--accent-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+      font-family: monospace;
+      color: #00ccff;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="portfolio_html_corrected.html#accueil">Accueil</a></li>
+        <li><a href="portfolio_html_corrected.html#bio">À propos</a></li>
+        <li><a href="portfolio_html_corrected.html#sae">SAE</a></li>
+        <li><a href="portfolio_html_corrected.html#projets">Projets</a></li>
+        <li><a href="portfolio_html_corrected.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🌐 Réseaux</div>
+          <div class="meta-item">📅 Semestre 1</div>
+          <div class="meta-item">⏱️ 45 heures</div>
+          <div class="meta-item">👥 Binôme</div>
+        </div>
+        <h1>SAE 1.02 – S'initier aux réseaux informatiques</h1>
+        <p class="hero-description">
+          Apprentissage fondamental des concepts réseau avec manipulation pratique d'équipements et configuration de topologies simples pour comprendre les bases de l'interconnexion.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">TCP/IP</span>
+          <span class="skill-tag">Câblage Ethernet</span>
+          <span class="skill-tag">Configuration IP</span>
+          <span class="skill-tag">Wireshark</span>
+          <span class="skill-tag">Commandes réseau</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Cette SAE constitue l'introduction pratique au monde des réseaux informatiques. Elle vise à acquérir 
+        les compétences fondamentales nécessaires pour comprendre et manipuler les équipements réseau de base, 
+        tout en découvrant les protocoles essentiels de la communication numérique.
+      </p>
+      
+      <div class="challenge">
+        <h4>🎯 Défi principal</h4>
+        <p>
+          Maîtriser les bases pratiques des réseaux en réalisant des connexions physiques, en configurant 
+          des adresses IP, et en analysant le trafic réseau pour comprendre concrètement le fonctionnement 
+          des communications entre équipements informatiques.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Réalisations Détaillées</h2>
+      
+      <div class="deliverable light-effect">
+        <h4>🔧 Maîtrise du câblage Ethernet</h4>
+        <p><strong>Objectif :</strong> Apprendre à créer et tester différents types de câbles réseau.</p>
+        <p><strong>Réalisation :</strong> Confection de câbles droits (TIA/EIA-568B) et croisés, sertissage de connecteurs RJ45, test avec testeur de câbles professionnel, mesure de la continuité et de la résistance. Documentation des normes de câblage et création d'un guide de dépannage.</p>
+        <p><strong>Compétences développées :</strong> Travail manuel de précision, normes industrielles, diagnostic matériel</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🖥️ Configuration d'adresses IP</h4>
+        <p><strong>Objectif :</strong> Maîtriser l'adressage IPv4 statique et dynamique.</p>
+        <p><strong>Réalisation :</strong> Configuration manuelle d'adresses IP, masques de sous-réseau, passerelles par défaut sur Windows et Linux. Test de la connectivité inter-machines, configuration DHCP basique, résolution de conflits d'adresses, et documentation des plages d'adressage utilisées.</p>
+        <p><strong>Compétences développées :</strong> Administration système, protocoles TCP/IP, subnetting</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🔍 Tests de connectivité avancés</h4>
+        <p><strong>Objectif :</strong> Utiliser les outils de diagnostic réseau pour valider les configurations.</p>
+        <p><strong>Réalisation :</strong> Utilisation intensive de ping pour tester la connectivité, traceroute pour analyser le chemin des paquets, netstat pour examiner les connexions actives, ipconfig/ifconfig pour diagnostiquer la configuration, et nslookup pour les tests DNS.</p>
+        <p><strong>Compétences développées :</strong> Diagnostic réseau, interprétation des résultats, méthodologie de dépannage</p>
+
+        <div class="topology-diagram">
+          <strong>Exemple de test réalisé :</strong><br>
+          PC1 [192.168.1.10] ──── Switch ──── PC2 [192.168.1.20]<br>
+          ping 192.168.1.20 : 4 paquets transmis, 0% perte<br>
+          RTT min/avg/max = 1/2/4 ms
+        </div>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📊 Analyse de trames avec Wireshark</h4>
+        <p><strong>Objectif :</strong> Découvrir l'analyse protocolaire en temps réel.</p>
+        <p><strong>Réalisation :</strong> Installation et configuration de Wireshark, capture de trafic HTTP, HTTPS, DNS, DHCP, analyse détaillée des en-têtes Ethernet, IP, TCP, UDP. Identification des différentes phases de connexion TCP (3-way handshake), et création de rapports d'analyse avec captures d'écran annotées.</p>
+        <p><strong>Compétences développées :</strong> Analyse protocolaire, sécurité réseau, documentation technique</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📋 Documentation des topologies</h4>
+        <p><strong>Objectif :</strong> Créer une documentation technique complète des configurations testées.</p>
+        <p><strong>Réalisation :</strong> Schémas détaillés des topologies avec logiciel de diagramme, tableau d'adressage complet, procédures de configuration étape par étape, guide de dépannage avec symptômes et solutions, et présentation des résultats devant la classe.</p>
+        <p><strong>Compétences développées :</strong> Documentation technique, schématisation, communication professionnelle</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Topologies Testées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🔗 Connexion Directe</h3>
+          <p>Test de la communication entre deux PC via câble croisé, configuration d'adresses IP dans le même sous-réseau, validation de la connectivité.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔄 Réseau Commuté</h3>
+          <p>Interconnexion de 4 PC via switch, configuration DHCP, test de la communication broadcast et unicast, analyse ARP.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🌐 Accès Internet</h3>
+          <p>Configuration d'un réseau local avec passerelle, test d'accès Internet, analyse DNS, capture de trafic web.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔒 Réseau Segmenté</h3>
+          <p>Création de deux sous-réseaux isolés, test de l'isolation, configuration d'un routeur basique pour interconnexion.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Techniques Acquises</h2>
+      <div class="sae-grid">
+        <div class="sae-card light-effect">
+          <h3>🛠️ Manipulation Hardware</h3>
+          <p>Maîtrise du câblage réseau, sertissage de connecteurs, test de continuité, utilisation d'équipements de mesure.</p>
+        </div>
+        <div class="sae-card light-effect">
+          <h3>⚙️ Configuration Système</h3>
+          <p>Administration réseau Windows/Linux, configuration IP statique/dynamique, gestion des interfaces réseau.</p>
+        </div>
+        <div class="sae-card light-effect">
+          <h3>🔍 Diagnostic et Dépannage</h3>
+          <p>Utilisation d'outils de diagnostic, méthodologie de résolution de problèmes, interprétation des messages d'erreur.</p>
+        </div>
+        <div class="sae-card light-effect">
+          <h3>📈 Analyse Protocolaire</h3>
+          <p>Compréhension des protocoles réseau, analyse de trames, identification des flux de données.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bilan et Perspectives</h2>
+      <p>
+        Cette SAE m'a fourni des bases solides en réseaux informatiques, combinant théorie et pratique de manière 
+        équilibrée. La manipulation d'équipements réels et l'analyse de trafic m'ont permis de comprendre concrètement 
+        les concepts abstraits étudiés en cours.
+      </p>
+      <p>
+        Les compétences pratiques acquises (câblage, configuration, diagnostic) constituent un socle essentiel 
+        pour les SAE plus avancées. Cette expérience a confirmé mon intérêt pour l'infrastructure réseau et 
+        m'a donné envie d'approfondir les aspects sécurité et performance des réseaux d'entreprise.
+      </p>
+      
+      <div class="challenge">
+        <h4>💡 Points clés retenus</h4>
+        <p>
+          L'importance de la méthodologie dans le diagnostic réseau, la nécessité de documenter précisément 
+          les configurations, et la valeur de l'analyse protocolaire pour comprendre les dysfonctionnements.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>

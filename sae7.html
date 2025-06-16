@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 2.02 – Web Radio ESP32 | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(255, 68, 68, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .sae-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #ff4444, #ff6666);
+    }
+    .deliverable h4 {
+      color: #ff4444;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .challenge {
+      background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(255, 102, 102, 0.05));
+      border: 1px solid rgba(255, 68, 68, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 {
+      color: #ff4444;
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .technical-specs {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .spec-item {
+      background: var(--primary-bg);
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 3px solid #ff4444;
+    }
+    .spec-item strong {
+      color: #ff4444;
+    }
+    .validation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .validation-item {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .validation-item.completed {
+      border-color: #4CAF50;
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+    }
+    .validation-item.in-progress {
+      border-color: #FF9800;
+      background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 152, 0, 0.05));
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .status-completed {
+      background: #4CAF50;
+      color: white;
+    }
+    .status-in-progress {
+      background: #FF9800;
+      color: white;
+    }
+    .status-pending {
+      background: var(--border-color);
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="portfolio_html_corrected.html#accueil">Accueil</a></li>
+        <li><a href="portfolio_html_corrected.html#bio">À propos</a></li>
+        <li><a href="portfolio_html_corrected.html#sae">SAE</a></li>
+        <li><a href="portfolio_html_corrected.html#projets">Projets</a></li>
+        <li><a href="portfolio_html_corrected.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">📻 Web Radio</div>
+          <div class="meta-item">📅 Semestre 2</div>
+          <div class="meta-item">⏱️ 20.5 heures</div>
+          <div class="meta-item">👥 Binôme</div>
+        </div>
+        <h1>SAE 2.02 – Web Radio ESP32</h1>
+        <p class="hero-description">
+          Développement d'une radio internet portable basée sur ESP32 et codec VS1053, 
+          avec contrôle depuis smartphone via protocole MQTT.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">ESP32</span>
+          <span class="skill-tag">VS1053</span>
+          <span class="skill-tag">MQTT</span>
+          <span class="skill-tag">WiFi</span>
+          <span class="skill-tag">Audio</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Cette SAE consiste à développer une web radio portable capable de lire des stations 
+        internet en format MP3 ou AAC. Le projet utilise une carte Adafruit HUZZAH32 ESP32 
+        couplée à un codec audio VS1053 pour décoder et diffuser le son via casque ou haut-parleurs.
+      </p>
+      
+      <div class="challenge">
+        <h4>🎯 Objectif principal</h4>
+        <p>
+          Créer un lecteur radio internet autonome avec contrôle distant via smartphone, 
+          gestion du volume, de la tonalité et des effets audio, le tout programmé en C++ 
+          sur plateforme Arduino IDE.
+        </p>
+      </div>
+
+      <div class="technical-specs">
+        <h4>🔧 Matériel utilisé</h4>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <strong>Microcontrôleur :</strong> Adafruit HUZZAH32 ESP32 Feather
+          </div>
+          <div class="spec-item">
+            <strong>Codec Audio :</strong> VS1053 (Music Maker FeatherWing)
+          </div>
+          <div class="spec-item">
+            <strong>Protocole :</strong> SPI pour communication ESP32-VS1053
+          </div>
+          <div class="spec-item">
+            <strong>Connectivité :</strong> WiFi 2.4GHz intégré ESP32
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Développement par étapes</h2>
+      
+      <div class="deliverable light-effect">
+        <h4>📡 Partie 1-2 : Environnement de développement</h4>
+        <p><strong>Objectif :</strong> Configurer l'IDE Arduino pour ESP32 et comprendre le matériel.</p>
+        <p><strong>Réalisation :</strong> Installation des bibliothèques ESP32, étude du schéma de la carte HUZZAH32, identification des broches GPIO et SPI. Configuration de l'environnement de développement avec les bonnes versions des bibliothèques.</p>
+        <p><strong>Difficultés rencontrées :</strong> Problèmes de drivers USB et configuration des ports série.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🎵 Partie 3-5 : Premier prototype fonctionnel</h4>
+        <p><strong>Objectif :</strong> Créer une web radio basique avec stations préprogrammées.</p>
+        <p><strong>Réalisation :</strong> Utilisation de la bibliothèque Baldram ESP_VS1053_Library, programmation du décodage audio, connexion WiFi en dur, lecture de stations internet populaires (RTL, Europe1, etc.).</p>
+        <p><strong>Compétences acquises :</strong> Communication SPI, gestion des flux audio streaming, débogage série.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🎛️ Partie 6 : Contrôles audio avancés</h4>
+        <p><strong>Objectif :</strong> Ajouter le contrôle du volume, des basses, aigus et spatialisation.</p>
+        <p><strong>Réalisation :</strong> Implémentation des commandes clavier (n/v pour stations, y/b pour volume, g/f pour basses, j/h pour aigus). Programmation des registres VS1053 pour la spatialisation audio 3D.</p>
+        <p><strong>Défi technique :</strong> Manipulation directe des registres du codec pour des effets non disponibles dans la bibliothèque.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📶 Partie 7-8 : Gestion WiFi et URLs</h4>
+        <p><strong>Objectif :</strong> Rendre la connexion WiFi flexible et simplifier la gestion des URLs.</p>
+        <p><strong>Réalisation :</strong> Intégration de WiFiManager pour connexion sans hardcodage des identifiants. Passage à la bibliothèque ESP32_VS1053_Stream pour gestion simplifiée des URLs complètes.</p>
+        <p><strong>Problème résolu :</strong> Compatibilité entre différentes bibliothèques et maintien des fonctionnalités audio.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📱 Partie 9-10 : Interface mobile MQTT</h4>
+        <p><strong>Objectif :</strong> Contrôler la radio depuis un smartphone via MQTT.</p>
+        <p><strong>Réalisation :</strong> Implémentation du protocole MQTT avec PubSubClient, création d'une interface Android avec IoT MQTT Panel. Contrôle complet depuis le téléphone : volume, stations, tonalité, URL personnalisées.</p>
+        <p><strong>Innovation :</strong> Synchronisation bidirectionnelle entre commandes clavier et interface mobile.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>État d'avancement du projet</h2>
+      
+      <div class="validation-grid">
+        <div class="validation-item completed">
+          <h4>V_PGM_1 à V_PGM_4</h4>
+          <p>Radio basique + contrôles audio + WiFiManager</p>
+          <div class="status-badge status-completed">✓ Validé</div>
+        </div>
+        
+        <div class="validation-item completed">
+          <h4>V_PGM_5.1 à V_PGM_5.3</h4>
+          <p>URLs simplifiées + récupération tonalité</p>
+          <div class="status-badge status-completed">✓ Validé</div>
+        </div>
+        
+        <div class="validation-item in-progress">
+          <h4>V_PGM_6 à V_PGM_8</h4>
+          <p>Interface MQTT complète</p>
+          <div class="status-badge status-in-progress">⚠ En cours</div>
+        </div>
+        
+        <div class="validation-item completed">
+          <h4>V_MQTT</h4>
+          <p>Test protocole MQTT</p>
+          <div class="status-badge status-completed">✓ Validé</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Difficultés rencontrées</h2>
+      <p>
+        Le principal défi de ce projet a été la gestion des bibliothèques incompatibles. Le passage 
+        de la bibliothèque Baldram à ESP32_VS1053_Stream a nécessité de réécrire les fonctions de 
+        contrôle audio, notamment pour la spatialisation qui nécessite une manipulation directe 
+        des registres du VS1053.
+      </p>
+      <p>
+        La mise en place du protocole MQTT a également posé des défis, particulièrement pour assurer 
+        une synchronisation fluide entre les commandes clavier et l'interface mobile, tout en 
+        maintenant la stabilité du streaming audio.
+      </p>
+    </section>
+
+    <section>
+      <h2>Compétences développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🔌 Électronique embarquée</h3>
+          <p>Maîtrise des protocoles SPI, gestion des GPIO, interfaçage de composants audio spécialisés.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>📡 Protocoles réseau</h3>
+          <p>Implémentation WiFi, streaming HTTP, protocole MQTT pour IoT, gestion des connexions instables.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>💻 Programmation C++</h3>
+          <p>Développement Arduino, gestion mémoire optimisée, programmation concurrente pour ESP32.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🎵 Traitement audio</h3>
+          <p>Décodage MP3/AAC, contrôle des paramètres audio, effets de spatialisation, égalisation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Perspectives d'amélioration</h2>
+      <p>
+        Le projet actuel fonctionne bien pour les fonctionnalités de base, mais plusieurs améliorations 
+        sont envisageables : ajout d'un écran OLED pour afficher les informations de la station en cours, 
+        implémentation de l'égaliseur graphique 5 bandes disponible en plugin VS1053, et développement 
+        d'une vraie application mobile dédiée plutôt que l'interface MQTT générique.
+      </p>
+      <p>
+        L'intégration d'un lecteur de carte SD permettrait également de jouer des fichiers locaux en 
+        complément des stations internet, transformant le projet en un véritable lecteur audio portable.
+      </p>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Développé avec passion pour l'audio et l'embarqué.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>
