@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enis Celikovic – Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- GSAP et ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#bio">À propos</a></li>
+        <li><a href="#sae">SAE</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <section id="accueil">
+      <div class="hero-content">
+        <h1>Enis Celikovic</h1>
+        <div class="hero-subtitle">Enis Celikovic. Étudiant en BUT Réseaux & Télécommunications</div>
+        <p class="hero-description">
+          Passionné par les technologies réseau, la cybersécurité et l'infrastructure informatique. 
+          Je développe mes compétences à travers des projets concrets et des SAE innovantes.
+        </p>
+        <a href="#bio" class="cta-button">Découvrir mon parcours</a>
+      </div>
+    </section>
+
+    <section id="bio">
+      <h2>À propos de moi</h2>
+      <p>
+        Curieux, rigoureux et passionné par les technologies réseau, je développe mes compétences autour de l'infrastructure informatique, 
+        la cybersécurité, l'administration système et le développement d'applications réseau. J'aime comprendre le fonctionnement profond 
+        des systèmes et relever des défis techniques complexes.
+      </p>
+      <p>
+        J'ai choisi le BUT R&T pour sa polyvalence et son approche concrète des métiers de demain. Cette formation me permet d'acquérir 
+        une vision globale des réseaux, depuis les aspects théoriques jusqu'aux implémentations pratiques en entreprise.
+      </p>
+      <p>
+        Mon objectif professionnel est de m'orienter vers l'ingénierie réseau ou la cybersécurité, que ce soit en entreprise privée 
+        ou en administration publique. Je souhaite contribuer à la sécurisation et à l'optimisation des infrastructures critiques.
+      </p>
+      <p>Je suis actuellement à la recherche d'une alternance en <strong>Réseaux et Télécommunications</strong> d'une durée de 2 ans, débutant en septembre 2025. Cette formation s'articule autour d'un rythme alternant 4 semaines en cours et 4 semaines en entreprise, permettant une immersion optimale dans le monde professionnel tout en consolidant les acquis théoriques. Passionné par les infrastructures réseau, la cybersécurité et les nouvelles technologies de télécommunications, je souhaite mettre mes compétences au service d'une entreprise dynamique et contribuer à des projets innovants dans ce domaine en constante évolution.</p>
+      <a href="CV Enis.pdf" target="_blank" class="cv-link">Télécharger mon CV →</a>
+    </section>
+
+    <section id="sae">
+      <h2>Mes Situations d'Apprentissage et d'Évaluation</h2>
+      <div class="sae-grid">
+        <div class="sae-card light-effect">
+          <h3>SAE 1.01 – Hygiène informatique</h3>
+          <p>Sensibilisation approfondie à la cybersécurité et application de mesures d'hygiène numérique complètes pour sécuriser un environnement de travail.</p>
+          <div class="sae-skills">
+            <span class="skill-tag">Cybersécurité</span>
+            <span class="skill-tag">Politique de sécurité</span>
+            <span class="skill-tag">Audit</span>
+          </div>
+          <p><strong>Réalisations :</strong> Réalisation d'une Vidéo sur la sensibilisation Informatique. Recherche sur le monde de l'hygiène informatique, sur les diverses attaque et les parades à ces attaques.</p>
+          <a href="sae1.html" class="sae-link">Voir les détails →</a>
+        </div>
+
+        <div class="sae-card light-effect">
+          <h3>SAE 1.02 – S'initier aux réseaux informatiques</h3>
+          <p>Apprentissage fondamental des concepts réseau avec manipulation pratique d'équipements et configuration de topologies simples.</p>
+          <div class="sae-skills">
+            <span class="skill-tag">TCP/IP</span>
+            <span class="skill-tag">Câblage</span>
+            <span class="skill-tag">Configuration</span>
+          </div>
+          <p><strong>Réalisations :</strong> Maîtrise du câblage Ethernet (droit/croisé), configuration manuelle d'adresses IP statiques et dynamiques, tests de connectivité avec ping, traceroute et netstat, analyse des trames avec Wireshark, et documentation complète des topologies testées avec schémas détaillés.</p>
+          <a href="sae2.html" class="sae-link">Voir les détails →</a>
+        </div>
+
+        <div class="sae-card light-effect">
+          <h3>SAE 1.03 – Dispositif de transmission</h3>
+          <p>Étude des systèmes de transmission avec analyse des caractéristiques physiques et électriques des signaux.</p>
+          <div class="sae-skills">
+            <span class="skill-tag">Signaux analogiques</span>
+            <span class="skill-tag">Mesures électriques</span>
+            <span class="skill-tag">Oscilloscope</span>
+          </div>
+          <p><strong>Réalisations :</strong> Analyse complète d'un système émetteur/récepteur, mesures de puissance, fréquence et bande passante et rapport technique détaillé avec graphiques et interprétations.</p>
+          <a href="sae3.html" class="sae-link">Voir les détails →</a>
+        </div>
+
+        <div class="sae-card light-effect">
+          <h3>SAE 1.04 – Se présenter sur internet</h3>
+          <p>Création d'une présence web professionnelle avec développement d'un CV interactif et responsive utilisant les dernières technologies.</p>
+          <div class="sae-skills">
+            <span class="skill-tag">HTML5/CSS3</span>
+            <span class="skill-tag">Responsive Design</span>
+            <span class="skill-tag">UX/UI</span>
+          </div>
+          <p><strong>Réalisations :</strong> Développement d'une page web moderne et responsive, intégration de CSS Grid et Flexbox, optimisation pour mobile.</p>
+          <a href="sae4.html" class="sae-link">Voir les détails →</a>
+        </div>
+
+        <div class="sae-card light-effect">
+          <h3>SAE 1.05 – Traiter des données</h3>
+          <p>Développement de scripts pour l'automatisation du traitement de données système et réseau avec analyse statistique.</p>
+          <div class="sae-skills">
+            <span class="skill-tag">PowerShell</span>
+            <span class="skill-tag">JSON/XML</span>
+            <span class="skill-tag">Automatisation</span>
+          </div>
+          <p><strong>Réalisations :</strong> Création d'un script PowerShell pour extraction des logs système, filtrage intelligent des données, export vers formats multiples (JSON, CSV,), génération de rapports automatisés avec graphiques, et planification via tâches Windows.</p>
+          <a href="sae5.html" class="sae-link">Voir les détails →</a>
+        </div>
+
+        <div class="sae-card light-effect">
+          <h3>SAE 2.01 – Construire un réseau</h3>
+          <p>Conception et déploiement complet d'une infrastructure réseau d'entreprise avec segmentation avancée et services intégrés.</p>
+          <div class="sae-skills">
+            <span class="skill-tag">VLAN</span>
+            <span class="skill-tag">Routage</span>
+            <span class="skill-tag">Cisco IOS</span>
+          </div>
+          <p><strong>Réalisations :</strong> Conception d'un plan d'adressage optimisé, configuration de switchs Cisco avec VLANs inter-connectés, mise en place du trunking , routage inter-VLAN, déploiement physique complet avec documentation réseau.</p>
+          <a href="sae6.html" class="sae-link">Voir les détails →</a>
+        </div>
+
+        <div class="sae-card light-effect">
+          <h3>SAE 2.02 – Mesurer un signal</h3>
+          <p>Analyse de signaux avec utilisation d'équipements de mesure et traitement numérique du signal.</p>
+          <div class="sae-skills">
+            <span class="skill-tag">FFT</span>
+            <span class="skill-tag">Analyse spectrale</span>
+            <span class="skill-tag">ESP32</span>
+          </div>
+          <p><strong>Réalisations :</strong> Programmation ESP32 pour génération de signaux personnalisés, caractérisation de filtres analogiques, traitement audio et rapport d'analyse avec interprétations techniques.</p>
+          <a href="sae7.html" class="sae-link">Voir les détails →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="projets">
+      <h2>Mes projets personnels</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>Portfolio Web Avancé</h3>
+          <p>Création de ce portfolio responsive moderne avec animations CSS avancées, design inspiré des tendances actuelles, optimisations de performance et lighthouse score parfait. Utilisation de CSS Grid, animations keyframes et design system cohérent.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>Serveur Proxmox - Infrastructure Locale et Domotique</h3>
+          <p>J'ai conçu et déployé une infrastructure serveur complète basée sur Proxmox VE pour créer un environnement de stockage et de gestion de données local hautement disponible. Ce projet a impliqué la configuration d'un hyperviseur Proxmox permettant la virtualisation de plusieurs services critiques, notamment l'implémentation de Home Assistant pour la centralisation et le contrôle de l'écosystème domotique local. L'architecture inclut une solution de stockage redondante pour assurer la persistance des données IoT et la continuité de service.
+Pour garantir l'accessibilité et la flexibilité d'utilisation, j'ai configuré un accès VPN sécurisé permettant une connexion distante au serveur depuis n'importe quel emplacement. Cette solution offre un contrôle total de l'infrastructure, permettant la récupération, la synchronisation et la gestion des données à distance, ainsi que le pilotage des dispositifs domotiques. L'ensemble de l'infrastructure est optimisé pour offrir performance, sécurité et disponibilité, constituant une base solide pour un écosystème numérique personnel autonome et maîtrisé.</p>
+        </div>
+      </div>
+    </section>
+
+<section id="contact">
+  <h2>Restons en contact</h2>
+  <div class="contact-info">
+    <div class="contact-item">
+      <h3>Enis Celikovic</h3>
+      <p>étudiant en Réseaux et Télécommunications.</p>
+    </div>
+    
+    <div class="contact-item">
+      <h4>📧 Email Professionnel</h4>
+      <a href="mailto:eclkv.pro@gmail.com">eclkv.pro@gmail.com</a>
+    </div>
+    
+    <div class="contact-item">
+      <h4>🎓 Email Universitaire</h4>
+      <a href="mailto:enis.celikovic@etudiant.univ-orleans.fr">enis.celikovic@uha.fr</a>
+    </div>
+    
+    <div class="contact-item">
+      <h4>📱 Téléphone</h4>
+      <a href="tel:+33783640140">+33 7 83 64 01 40</a>
+    </div>
+    
+    <div class="contact-item">
+      <p>N'hésitez pas à me contacter pour discuter de vos projets ou opportunités de collaboration !</p>
+    </div>
+  </div>
+</section>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>
