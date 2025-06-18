@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE - Solution informatique pour l'entreprise | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(68, 153, 255, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .sae-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #4499ff, #66aaff);
+    }
+    .deliverable h4 {
+      color: #4499ff;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .challenge {
+      background: linear-gradient(135deg, rgba(68, 153, 255, 0.1), rgba(102, 170, 255, 0.05));
+      border: 1px solid rgba(68, 153, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 {
+      color: #4499ff;
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .schema-box {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="index.html#accueil">Accueil</a></li>
+        <li><a href="index.html#bio">À propos</a></li>
+        <li><a href="index.html#sae">SAE</a></li>
+        <li><a href="index.html#projets">Projets</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html#sae" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🌐 Développement Web</div>
+          <div class="meta-item">📅 Semestre 2</div>
+          <div class="meta-item">⏱️ 60 heures</div>
+          <div class="meta-item">👥 Équipe de 3</div>
+        </div>
+        <h1>SAE - Mettre en place une solution informatique pour l'entreprise</h1>
+        <p class="hero-description">
+          Premier projet de développement web complet : création d'un site de gestion de ludothèque 
+          avec base de données, permettant aux utilisateurs de consulter, commenter et noter les jeux.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">Django</span>
+          <span class="skill-tag">MariaDB</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Cette SAE nous permet de découvrir le développement web à travers un projet concret : 
+        créer un site pour gérer une ludothèque. Les utilisateurs peuvent s'inscrire, consulter 
+        les jeux disponibles, les noter et les commenter.
+      </p>
+      
+      <div class="challenge">
+        <h4>🎯 Mission</h4>
+        <p>
+          Développer en équipe de 3 personnes un site web fonctionnel avec une base de données, 
+          hébergé sur une machine virtuelle Linux. Le site doit permettre de gérer des jeux, 
+          des utilisateurs et leurs commentaires.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Schéma de Données</h2>
+      <p>Nous devons implémenter les tables suivantes dans notre base de données :</p>
+      
+      <div class="schema-box">
+        <strong>📂 Catégories :</strong> id, nom, descriptif<br>
+        <strong>🎲 Jeux :</strong> id, titre, année, photo, éditeur, auteur, catégorie<br>
+        <strong>✍️ Auteurs :</strong> id, nom, prénom, âge, photo<br>
+        <strong>👤 Joueurs :</strong> id, nom, prénom, email, mot de passe, type<br>
+        <strong>💬 Commentaires :</strong> jeu, joueur, note, commentaire, date<br>
+        <strong>📋 Listes personnelles :</strong> jeux favoris des utilisateurs
+      </div>
+
+      <p>Chaque utilisateur peut être soit "professionnel" soit "particulier", ce qui permet 
+      de calculer des moyennes de notes séparées pour chaque type d'utilisateur.</p>
+    </section>
+
+    <section>
+      <h2>Fonctionnalités Développées</h2>
+      
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>👥 Inscription et Connexion</h3>
+          <p>Les nouveaux utilisateurs peuvent créer un compte et se connecter. Distinction entre professionnels et particuliers.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🎲 Catalogue de Jeux</h3>
+          <p>Affichage de tous les jeux avec leurs informations : titre, année, éditeur, auteur et catégorie.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>⭐ Système de Notes</h3>
+          <p>Chaque utilisateur peut noter et commenter les jeux. Calcul automatique de la moyenne par type d'utilisateur.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>📁 Import de Jeux</h3>
+          <p>Possibilité d'ajouter des jeux en masse via un fichier. Création automatique des auteurs s'ils n'existent pas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Livrables Réalisés</h2>
+      
+      <div class="deliverable light-effect">
+        <h4>📊 Planning de Projet (Gantt)</h4>
+        <p><strong>Par équipe :</strong> Organisation du travail sur 8 semaines avec répartition des tâches entre les 3 membres.</p>
+        <p><strong>Ma contribution :</strong> Responsable de la partie base de données et des fonctionnalités de commentaires.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📝 Procédure d'Installation</h4>
+        <p><strong>Document individuel :</strong> Guide de 3 pages expliquant comment installer et déployer notre application.</p>
+        <p><strong>Contenu :</strong> Installation de Linux, configuration de MariaDB, déploiement avec Django et Nginx/Gunicorn.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🌐 Site Web Fonctionnel</h4>
+        <p><strong>Réalisation technique :</strong> Site développé en Django avec interface simple et intuitive.</p>
+        <p><strong>Fonctionnalités :</strong> CRUD complet pour toutes les données, système de notes et commentaires, pages de profil utilisateur.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🎤 Présentation Groupe</h4>
+        <p><strong>Démonstration :</strong> 8 minutes de présentation du projet avec démonstration en live.</p>
+        <p><strong>Mon rôle :</strong> Présentation de la base de données et démonstration du système de commentaires.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📱 Dépôt GitHub</h4>
+        <p><strong>Code source :</strong> Tout le code de l'application avec historique des modifications.</p>
+        <p><strong>Organisation :</strong> README clair, structure de dossiers logique, commentaires dans le code.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Outils et Technologies Utilisés</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🐍 Django</h3>
+          <p>Framework Python pour créer rapidement des sites web. Première découverte de ce framework puissant.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🗄️ MariaDB</h3>
+          <p>Base de données pour stocker toutes les informations. Apprentissage du SQL et de la gestion de données.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🐧 Linux Ubuntu</h3>
+          <p>Machine virtuelle pour héberger notre application. Découverte des commandes de base Linux.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>📚 Git/GitHub</h3>
+          <p>Travail collaboratif avec versioning. Apprentissage du travail en équipe sur un même code.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Difficultés Rencontrées</h2>
+      <p>
+        Comme premier projet web complet, plusieurs défis se sont présentés :
+      </p>
+      
+      <div class="challenge">
+        <h4>🔧 Défis techniques</h4>
+        <p>
+          Configuration de l'environnement Linux, connexion entre Django et MariaDB, 
+          gestion des conflits Git dans le travail d'équipe, et débogage des erreurs 
+          de développement web.
+        </p>
+      </div>
+
+      <p>
+        Ces difficultés nous ont permis d'apprendre concrètement le développement web 
+        et de comprendre l'importance de la collaboration et de la documentation.
+      </p>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>💻 Bases du Développement Web</h3>
+          <p>Première expérience concrète avec HTML, CSS, Python/Django et bases de données.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🤝 Travail en Équipe</h3>
+          <p>Collaboration sur un projet informatique, partage du code avec Git, répartition des tâches.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🗄️ Gestion de Données</h3>
+          <p>Conception de base de données, requêtes SQL, relation entre les tables.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>📋 Gestion de Projet</h3>
+          <p>Planification, suivi des deadlines, organisation du travail en équipe.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bilan de l'Expérience</h2>
+      <p>
+        Ce premier projet de développement web m'a donné une vue d'ensemble du processus 
+        de création d'une application complète. J'ai découvert les joies et les défis 
+        du travail en équipe sur un projet technique.
+      </p>
+      <p>
+        L'aspect le plus enrichissant a été de voir notre code prendre vie sous forme 
+        d'un site web fonctionnel. Cette SAE m'a donné envie d'approfondir mes connaissances 
+        en développement web et de découvrir d'autres technologies.
+      </p>
+    </section>
+
+    <section>
+      <h2>Project Summary (English)</h2>
+      <div class="challenge">
+        <h4>🌍 SAE - IT Solution Implementation for Enterprise</h4>
+        <p>
+          <strong>Duration:</strong> 60 hours over 8 weeks | <strong>Team:</strong> 3 students | <strong>Semester:</strong> 2nd
+        </p>
+        <p>
+          This project was our first complete web development experience, where we created a board game library management website. 
+          The application allows users to register, browse available games, rate them, and leave comments.
+        </p>
+        <p>
+          <strong>Technical Stack:</strong> Django (Python), MariaDB database, HTML/CSS, Linux Ubuntu server, Git version control
+        </p>
+        <p>
+          <strong>Key Features:</strong> User registration system with professional/individual distinction, comprehensive game catalog, 
+          rating and commenting system with separate averages per user type, bulk game import functionality, and personal game lists.
+        </p>
+        <p>
+          <strong>My Role:</strong> Responsible for database design and implementation, comment system development, and technical presentation. 
+          This project provided hands-on experience with full-stack web development, database management, team collaboration, 
+          and project planning using Gantt charts.
+        </p>
+        <p>
+          <strong>Outcome:</strong> Successfully delivered a functional web application with complete CRUD operations, 
+          comprehensive documentation, and live demonstration. This experience sparked my interest in web development 
+          and laid the foundation for more advanced projects.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>
