@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 3.02 – Développer des applications communicantes | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(68, 153, 255, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .sae-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #4499ff, #66aaff);
+    }
+    .deliverable h4 {
+      color: #4499ff;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .challenge {
+      background: linear-gradient(135deg, rgba(68, 153, 255, 0.1), rgba(102, 170, 255, 0.05));
+      border: 1px solid rgba(68, 153, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 {
+      color: #4499ff;
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .schema-box {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .onion-diagram {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 25px 0;
+      text-align: center;
+    }
+    .onion-layer {
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin: 8px auto;
+      max-width: 500px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .layer-1 { background: rgba(68, 153, 255, 0.25); border: 1px solid rgba(68, 153, 255, 0.5); color: #4499ff; }
+    .layer-2 { background: rgba(68, 153, 255, 0.15); border: 1px solid rgba(68, 153, 255, 0.35); max-width: 420px; }
+    .layer-3 { background: rgba(68, 153, 255, 0.08); border: 1px solid rgba(68, 153, 255, 0.2); max-width: 340px; }
+    .arrow-down { font-size: 1.4rem; color: var(--text-secondary); margin: 4px 0; display: block; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="index.html#accueil">Accueil</a></li>
+        <li><a href="index.html#bio">À propos</a></li>
+        <li><a href="index.html#sae">SAE</a></li>
+        <li><a href="index.html#projets">Projets</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html#sae" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🔐 Cybersécurité & Réseau</div>
+          <div class="meta-item">📅 Semestre 3</div>
+          <div class="meta-item">⏱️ ~65 heures</div>
+          <div class="meta-item">👤 Individuel</div>
+        </div>
+        <h1>SAE 3.02 – Développer des applications communicantes</h1>
+        <p class="hero-description">
+          Conception et implémentation d'une architecture distribuée de routage en oignon : 
+          un système de communication anonyme entre clients via des routeurs virtuels, 
+          inspiré du protocole Tor.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Sockets TCP</span>
+          <span class="skill-tag">Threads</span>
+          <span class="skill-tag">Chiffrement asymétrique</span>
+          <span class="skill-tag">MariaDB</span>
+          <span class="skill-tag">PyQt6</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Cette SAE s'inscrit dans la ressource R3.09 (Programmation évènementielle) et vise à développer 
+        une application réseau complète. Le projet consiste à concevoir un système de communication 
+        anonyme entre plusieurs clients, à l'aide de routeurs virtuels interconnectés.
+      </p>
+
+      <div class="challenge">
+        <h4>🎯 Mission principale</h4>
+        <p>
+          Implémenter un <strong>réseau distribué de routeurs virtuels</strong> permettant à des clients 
+          d'échanger des messages de façon totalement anonyme, grâce au <strong>routage en oignon</strong> : 
+          chaque routeur ne connaît que son voisin direct, et les données sont chiffrées par couches successives, 
+          comme dans Tor (The Onion Router).
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Architecture du Système</h2>
+      <p>L'architecture repose sur trois composants principaux qui communiquent via sockets TCP :</p>
+
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🖥️ Serveur Master</h3>
+          <p>Superviseur central du réseau. Il reçoit les clés publiques de chaque routeur, 
+          définit la topologie et les distribue aux clients. Interface graphique PyQt6 pour 
+          visualiser les connexions et les logs en temps réel.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔀 Routeurs Virtuels</h3>
+          <p>Chaque routeur génère sa paire de clés publique/privée, s'enregistre auprès du Master, 
+          puis écoute les connexions entrantes. À la réception d'un message, il déchiffre 
+          <strong>une seule couche</strong> et transmet le reste au routeur suivant.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>👤 Clients</h3>
+          <p>Le client demande au Master la liste des routeurs disponibles et leurs clés publiques. 
+          Il choisit un chemin aléatoire (ex. 3 routeurs) et construit le message "en oignon" 
+          en chiffrant par couches successives avant d'envoyer le tout au premier routeur.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🗄️ Base de Données</h3>
+          <p>MariaDB stocke les tables de routage, les clés publiques des routeurs et les logs 
+          anonymisés des connexions. Aucun routeur ne peut retracer l'origine complète d'un message.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Principe du Routage en Oignon</h2>
+      <p>
+        Le cœur du projet est le <strong>chiffrement par couches</strong>. Avant d'envoyer un message, 
+        le client construit un "oignon" de la façon suivante :
+      </p>
+
+      <div class="onion-diagram">
+        <p style="margin-bottom: 16px; color: var(--text-secondary); font-size: 0.9rem;">Construction du message chiffré (Client A → Client B via 3 routeurs)</p>
+        <div class="onion-layer layer-1">Couche 1 : Enc(K1) → Adresse R2 + Couche 2</div>
+        <span class="arrow-down">↓</span>
+        <div class="onion-layer layer-2">Couche 2 : Enc(K2) → Adresse R3 + Couche 3</div>
+        <span class="arrow-down">↓</span>
+        <div class="onion-layer layer-3">Couche 3 : Enc(K3) → Adresse Client B + Message</div>
+      </div>
+
+      <p>
+        Chaque routeur déchiffre uniquement sa couche avec sa clé privée, découvre l'adresse 
+        du prochain saut, et transmet le reste sans pouvoir lire le contenu. Résultat : 
+        <strong>aucun routeur ne connaît à la fois l'expéditeur et le destinataire.</strong>
+      </p>
+    </section>
+
+    <section>
+      <h2>Aspects Techniques Implémentés</h2>
+
+      <div class="schema-box">
+        <strong>🔌 Sockets TCP/UDP</strong> — Communication entre clients, routeurs et master (ports dynamiques, gestion multi-threads)<br>
+        <strong>🧵 Threads</strong> — Serveur multi-clients non bloquant : chaque connexion entrante est traitée dans un thread dédié<br>
+        <strong>🔑 Chiffrement asymétrique</strong> — Implémentation manuelle (sans librairie crypto) : paire clé publique/privée par routeur<br>
+        <strong>📡 Routage</strong> — Table des prochains sauts stockée en BDD, appliquée selon les règles du Master<br>
+        <strong>🗄️ MariaDB</strong> — Stockage des clés, routes et logs (requêtes SQL, connexion Python native)<br>
+        <strong>🖼️ PyQt6</strong> — Interface graphique pour le Master (visualisation réseau, logs) et le Client (envoi de messages)<br>
+        <strong>📝 Journalisation anonymisée</strong> — Logs sans traçabilité complète de l'origine des messages
+      </div>
+    </section>
+
+    <section>
+      <h2>Livrables Réalisés</h2>
+
+      <div class="deliverable light-effect">
+        <h4>💻 Code Source Complet</h4>
+        <p><strong>Dépôt Git :</strong> Code organisé en modules distincts (master, routeur, client, crypto, bdd).</p>
+        <p><strong>Contraintes respectées :</strong> Développement 100% manuel, aucune librairie de cryptographie externe, 
+        code structuré et commenté.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📄 Documentation Technique</h4>
+        <p><strong>Cahier des charges :</strong> Éléments implémentés et non implémentés, description de l'algorithme de chiffrage (forces et faiblesses), structure des modules et protocoles.</p>
+        <p><strong>Guide d'installation :</strong> Étapes pour déployer le projet sur 3 VM (2 Linux, 1 Windows), 
+        lancement du Master, des routeurs et des clients.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>🎬 Vidéo de Démonstration</h4>
+        <p><strong>Durée :</strong> 5 à 10 minutes montrant le système complet en fonctionnement.</p>
+        <p><strong>Contenu :</strong> Environnement multi-VM, lancement de tous les composants, envoi de messages anonymes 
+        entre Client A et Client B, visualisation des trames chiffrées et commentaire oral des choix techniques.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>📋 Gestion de Projet</h4>
+        <p><strong>Planning prévisionnel :</strong> Rendu le 20 novembre, avec définition des tâches, suivi via GitHub Projects 
+        et journal de bord (commit messages explicites).</p>
+        <p><strong>Fiche individuelle :</strong> Description de mon rôle, des éléments travaillés et bilan de compétences 
+        au regard du référentiel R&T.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Difficultés Rencontrées</h2>
+
+      <div class="challenge">
+        <h4>🔧 Défis techniques</h4>
+        <p>
+          L'implémentation manuelle du chiffrement asymétrique sans librairie dédiée est le défi principal : 
+          il faut concevoir un algorithme de chiffrement par couches fonctionnel et suffisamment robuste. 
+          La gestion des threads et des sockets simultanés (plusieurs routeurs actifs en parallèle) 
+          demande également une architecture soignée pour éviter les blocages et les conditions de course.
+        </p>
+      </div>
+
+      <div class="challenge">
+        <h4>🏗️ Défi architectural</h4>
+        <p>
+          Coordonner le Master, les routeurs et les clients sur plusieurs machines virtuelles, 
+          tout en maintenant la cohérence des tables de routage en base de données et en garantissant 
+          que l'anonymat est préservé à chaque saut du réseau.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🔌 Programmation Réseau</h3>
+          <p>Maîtrise des sockets TCP en Python, gestion de connexions multi-clients avec threads, 
+          conception d'un protocole de communication applicatif.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔐 Cryptographie Appliquée</h3>
+          <p>Conception d'un chiffrement asymétrique simplifié (clé publique/privée), 
+          implémentation du principe de couches de chiffrement inspiré de Tor.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🖼️ Développement GUI</h3>
+          <p>Création d'interfaces graphiques non bloquantes avec PyQt6, 
+          visualisation en temps réel de la topologie réseau et des logs.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>📐 Architecture Distribuée</h3>
+          <p>Conception d'un système multi-composants sur plusieurs machines virtuelles, 
+          gestion de la cohérence via base de données MariaDB.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bilan de l'Expérience</h2>
+      <p>
+        Ce projet est l'un des plus ambitieux de ma formation BUT R&T. Il m'a permis de combiner 
+        des compétences réseau, de programmation et de cybersécurité dans un projet cohérent et concret. 
+        Comprendre et implémenter le principe du routage en oignon — que l'on retrouve dans des outils 
+        réels comme Tor — m'a donné une vision beaucoup plus approfondie du fonctionnement des réseaux anonymes.
+      </p>
+      <p>
+        Cette SAE confirme mon attrait pour la cybersécurité et l'ingénierie réseau, 
+        deux domaines dans lesquels je souhaite m'orienter professionnellement.
+      </p>
+    </section>
+
+    <section>
+      <h2>Project Summary (English)</h2>
+      <div class="challenge">
+        <h4>🌍 SAE 3.02 – Communicating Application Development</h4>
+        <p>
+          <strong>Duration:</strong> ~65 hours | <strong>Format:</strong> Individual | <strong>Semester:</strong> 3rd
+        </p>
+        <p>
+          This project involved designing and implementing a distributed onion-routing architecture: 
+          an anonymous communication system between clients using virtual routers, inspired by the Tor protocol.
+        </p>
+        <p>
+          <strong>Technical Stack:</strong> Python (sockets, threading), manual asymmetric encryption (no crypto library), 
+          MariaDB, PyQt6 GUI, multi-VM deployment (Linux + Windows)
+        </p>
+        <p>
+          <strong>Key Concepts:</strong> Each message traverses a chain of virtual routers where every node only knows 
+          its direct neighbors. Data is encrypted in successive layers — each router decrypts only one layer, 
+          discovers the next hop address, and forwards the rest, ensuring no single node knows both sender and recipient.
+        </p>
+        <p>
+          <strong>Outcome:</strong> A fully functional distributed anonymous messaging system with a graphical master 
+          server for network visualization, multi-threaded virtual routers, and a PyQt6 client interface — 
+          deployed across multiple virtual machines to simulate a real distributed environment.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>
