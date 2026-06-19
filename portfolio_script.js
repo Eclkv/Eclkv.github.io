@@ -587,3 +587,29 @@ function optimizePerformance() {
 
 // Initialiser les optimisations
 optimizePerformance();
+// Gestion du nouveau formulaire de contact (nouvelle section)
+function handleContactSubmit() {
+    const name    = document.getElementById('contact-name')?.value.trim();
+    const email   = document.getElementById('contact-email')?.value.trim();
+    const subject = document.getElementById('contact-subject')?.value.trim();
+    const message = document.getElementById('contact-message')?.value.trim();
+
+    if (!name || !email || !message) {
+        const form = document.getElementById('contactForm');
+        if (form) gsap.to(form, { x: -8, duration: 0.08, repeat: 5, yoyo: true, ease: "power2.inOut", onComplete: () => gsap.set(form, {x:0}) });
+        return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    if (btn) { btn.disabled = true; btn.querySelector('.submit-btn-text').textContent = 'Ouverture…'; }
+
+    const subjectEncoded = encodeURIComponent(subject || 'Contact depuis le portfolio');
+    const bodyEncoded = encodeURIComponent('Nom: ' + name + '\nEmail: ' + email + '\n\n' + message);
+    window.location.href = 'mailto:eclkv.pro@gmail.com?subject=' + subjectEncoded + '&body=' + bodyEncoded;
+
+    setTimeout(function() {
+        var success = document.getElementById('formSuccess');
+        if (success) success.classList.add('visible');
+        if (btn) { btn.disabled = false; btn.querySelector('.submit-btn-text').textContent = 'Envoyer le message'; }
+    }, 900);
+}
