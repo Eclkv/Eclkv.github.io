@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 4.Cyber.01 – Sécuriser un Système d'Information | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(68, 153, 255, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content { max-width: 800px; margin: 0 auto; }
+    .sae-meta { display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #4499ff, #66aaff);
+    }
+    .deliverable h4 { color: #4499ff; margin-bottom: 15px; font-size: 1.2rem; }
+    .challenge {
+      background: linear-gradient(135deg, rgba(68, 153, 255, 0.1), rgba(102, 170, 255, 0.05));
+      border: 1px solid rgba(68, 153, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 { color: #4499ff; margin-bottom: 15px; }
+    .back-button {
+      position: fixed;
+      top: 100px; left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .schema-box {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .code-block {
+      background: #0d1117;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #e6edf3;
+    }
+    .topo-wrap {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 30px 20px;
+      margin: 25px 0;
+      text-align: center;
+    }
+    .topo-wan { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px; }
+    .topo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0;
+    }
+    .topo-node {
+      background: rgba(68,153,255,0.1);
+      border: 1px solid rgba(68,153,255,0.35);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      min-width: 80px;
+    }
+    .topo-node span { display: block; font-size: 1.1rem; margin-bottom: 3px; }
+    .topo-arr { color: #4499ff; font-size: 1.1rem; padding: 0 4px; }
+    .topo-fw {
+      background: rgba(255,80,80,0.12);
+      border: 1px solid rgba(255,80,80,0.4);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ff5050;
+    }
+    .badge-service {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .b-infra  { background: rgba(80,220,140,0.15); border: 1px solid rgba(80,220,140,0.4); color: #50dc8c; }
+    .b-sec    { background: rgba(255,80,80,0.12);  border: 1px solid rgba(255,80,80,0.4);  color: #ff5050; }
+    .b-svc    { background: rgba(255,180,50,0.15); border: 1px solid rgba(255,180,50,0.4); color: #ffb432; }
+    .b-vpn    { background: rgba(200,100,255,0.15);border: 1px solid rgba(200,100,255,0.4);color: #c864ff; }
+    .b-mail   { background: rgba(50,200,220,0.15); border: 1px solid rgba(50,200,220,0.4); color: #32c8dc; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="index.html#accueil">Accueil</a></li>
+        <li><a href="index.html#bio">À propos</a></li>
+        <li><a href="index.html#sae">SAE</a></li>
+        <li><a href="index.html#projets">Projets</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html#sae" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🔐 Cybersécurité</div>
+          <div class="meta-item">📅 Semestre 4</div>
+          <div class="meta-item">👥 Groupe de 3</div>
+          <div class="meta-item">🖥️ Proxmox / EVE-NG</div>
+        </div>
+        <h1>SAE 4.Cyber.01 – Sécuriser un Système d'Information</h1>
+        <p class="hero-description">
+          Conception et déploiement d'un réseau d'entreprise sécurisé de A à Z sur Proxmox : 
+          pare-feu, IGC (Infrastructure de Gestion de Clés), annuaire LDAPs, VPN, NFS, 
+          messagerie chiffrée, bastion Apache Guacamole et haute disponibilité web.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">Pare-feu</span>
+          <span class="skill-tag">PKI / TLS</span>
+          <span class="skill-tag">OpenLDAP</span>
+          <span class="skill-tag">OpenVPN</span>
+          <span class="skill-tag">Postfix / Dovecot</span>
+          <span class="skill-tag">Apache Guacamole</span>
+          <span class="skill-tag">Proxmox</span>
+          <span class="skill-tag">BIND9</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Cette SAE constitue le projet de cybersécurité majeur du semestre 4. 
+        L'objectif est de construire un réseau d'entreprise <strong>complet et sécurisé</strong> 
+        sur la plateforme de virtualisation <strong>Proxmox</strong> (stockage Ceph distribué), 
+        en faisant des choix techniques justifiés et en évaluant les risques associés à chaque décision.
+      </p>
+
+      <div class="challenge">
+        <h4>🎯 Mission</h4>
+        <p>
+          Déployer une infrastructure réseau d'entreprise incluant un pare-feu, une IGC (PKI), 
+          un annuaire LDAP sécurisé par TLS, un VPN pour postes nomades, un partage NFS authentifié, 
+          une messagerie chiffrée, un bastion Apache Guacamole et un service web 
+          en haute disponibilité — le tout interconnecté et sécurisé de bout en bout.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Architecture Générale</h2>
+
+      <div class="topo-wrap">
+        <div class="topo-wan">🌐 WAN / Internet</div>
+        <div class="topo-row">
+          <div class="topo-arr">↕</div>
+        </div>
+        <div class="topo-row">
+          <div class="topo-fw">🛡️ Pare-feu (Firewall)</div>
+        </div>
+        <div class="topo-row">
+          <div class="topo-arr">↕</div>
+        </div>
+        <div class="topo-row">
+          <div class="topo-node"><span>🔑</span>LDAP<br><small style="font-weight:400">LDAPs/TLS</small></div>
+          <div class="topo-node"><span>📁</span>NFS<br><small style="font-weight:400">auth LDAP</small></div>
+          <div class="topo-node"><span>📧</span>Postfix<br><small style="font-weight:400">SMTP/TLS</small></div>
+          <div class="topo-node"><span>📬</span>Dovecot<br><small style="font-weight:400">IMAPs</small></div>
+          <div class="topo-node"><span>🌐</span>Web HA<br><small style="font-weight:400">Apache/nginx</small></div>
+          <div class="topo-node"><span>🖥️</span>Guacamole<br><small style="font-weight:400">Bastion</small></div>
+        </div>
+        <div class="topo-row">
+          <div class="topo-arr">↕</div>
+        </div>
+        <div class="topo-row">
+          <div class="topo-node"><span>🔐</span>OpenVPN<br><small style="font-weight:400">postes nomades</small></div>
+          <div class="topo-node"><span>🔤</span>BIND9<br><small style="font-weight:400">DNS</small></div>
+          <div class="topo-node"><span>📜</span>IGC / PKI<br><small style="font-weight:400">CA racine</small></div>
+        </div>
+      </div>
+
+      <p>
+        Tous les services tournent sur des VMs Proxmox isolées, dans deux réseaux internes 
+        (<strong>GrXNet1</strong> et <strong>GrXNet2</strong>) sans DHCP (adressage statique partout) 
+        et un réseau NAT (<strong>GrXNat</strong>) pour les accès sortants. 
+        Le stockage est assuré par un cluster <strong>Ceph</strong> (300 Go par groupe) 
+        avec clonage et snapshots via des templates Proxmox.
+      </p>
+    </section>
+
+    <section>
+      <h2>Composants Déployés</h2>
+
+      <div class="deliverable light-effect">
+        <span class="badge-service b-infra">🖥️ Infrastructure Proxmox</span>
+        <h4>Virtualisation + Plan d'adressage + Pare-feu</h4>
+        <p>
+          Déploiement du LAB complet sur <strong>Proxmox</strong> avec stockage Ceph en RBD. 
+          Utilisation des clones liées depuis templates pour déployer rapidement les VMs Debian. 
+          Définition d'un <strong>plan d'adressage IP statique</strong> rigoureux : 
+          chaque service dispose de son propre sous-réseau, les règles de routage 
+          et de filtrage sont documentées et justifiées.
+        </p>
+        <p>
+          Le <strong>pare-feu</strong> filtre tout trafic entrant/sortant avec des règles strictes 
+          par service (DNS, HTTPS, SMTP, IMAP, OpenVPN…). 
+          Seuls les ports nécessaires sont ouverts, principe du moindre privilège appliqué à chaque règle.
+        </p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <span class="badge-service b-sec">🔐 IGC — Infrastructure de Gestion de Clés</span>
+        <h4>PKI maison : CA racine + certificats serveurs + certificats clients</h4>
+        <p>
+          Création d'une <strong>Autorité de Certification (CA) racine</strong> avec OpenSSL. 
+          Émission de certificats serveurs signés par la CA pour chaque service 
+          (LDAP, OpenVPN, Apache, Postfix, Dovecot). 
+          Émission de <strong>certificats clients</strong> pour l'authentification mutuelle TLS des postes nomades via VPN.
+        </p>
+        <p>
+          Tous les protocoles réseau du SI sont ainsi chiffrés et authentifiés par notre propre IGC : 
+          LDAPs, OpenVPN, SMTPs, IMAPs, HTTPS.
+        </p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <span class="badge-service b-svc">📂 Annuaire LDAPs + NFS authentifié</span>
+        <h4>OpenLDAP sécurisé par TLS + partage de fichiers authentifié</h4>
+        <p>
+          Déploiement d'<strong>OpenLDAP</strong> initialisé via fichiers LDIF 
+          (organisation, unités, utilisateurs, groupes). 
+          Protocole sécurisé en <strong>LDAPs (TLS)</strong> avec certificat issu de notre IGC. 
+          Configuration PAM sur les serveurs Debian pour l'authentification centralisée via LDAP.
+        </p>
+        <p>
+          Le serveur <strong>NFS</strong> exporte des répertoires dont l'accès est conditionné 
+          à l'authentification LDAP : seul un utilisateur du domaine peut monter les partages. 
+          Configuration de <code>/etc/exports</code> avec restrictions par sous-réseau.
+        </p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <span class="badge-service b-vpn">🔒 OpenVPN + Bastion Guacamole</span>
+        <h4>Accès distant sécurisé pour postes nomades</h4>
+        <p>
+          Serveur <strong>OpenVPN</strong> configuré avec authentification par certificat client 
+          (émis par notre IGC) et identifiants LDAP. 
+          Règles de filtrage et routage dédiées au tunnel VPN. 
+          Les postes nomades accèdent au SI interne comme s'ils étaient physiquement présents.
+        </p>
+        <p>
+          <strong>Apache Guacamole</strong> joue le rôle de bastion d'accès : 
+          interface web permettant d'accéder aux VMs internes (SSH, RDP) 
+          depuis un navigateur, avec identification via l'annuaire LDAP 
+          et journalisation de toutes les sessions (logs horodatés).
+        </p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <span class="badge-service b-mail">📧 Messagerie chiffrée + Web haute disponibilité</span>
+        <h4>Postfix SMTP + Dovecot IMAP + Apache load balancing</h4>
+        <p>
+          Serveur <strong>Postfix</strong> configuré avec authentification LDAP, 
+          chiffrement TLS (SMTPs) et logs analysés. 
+          Serveur <strong>Dovecot IMAP</strong> avec certificat TLS (IMAPs) 
+          et authentification via l'annuaire LDAP. 
+          Tests réalisés via TELNET SMTP et client de messagerie configuré avec notre IGC.
+        </p>
+        <p>
+          Service web en <strong>haute disponibilité</strong> avec load balancing 
+          (Apache ou nginx reverse proxy) répartissant la charge entre plusieurs backends. 
+          HTTPS activé avec certificat issu de notre CA. 
+          Proxy authentifiant Squid pour les accès web sortants des utilisateurs.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Évaluation des Risques</h2>
+      <p>La présentation finale inclut une analyse des risques par composant :</p>
+
+      <div class="schema-box">
+        <strong>🔴 Risque élevé</strong><br>
+        CA racine compromise → tous les certificats invalidés → mise en place d'une CA offline et d'une CA intermédiaire<br>
+        Annuaire LDAP accessible sans TLS → credentials en clair → LDAPs imposé + pare-feu restrictif<br><br>
+        <strong>🟠 Risque modéré</strong><br>
+        Certificats expirés sur les services → renouvellement à planifier + monitoring<br>
+        Logs Guacamole non surveillés → attaques non détectées → alerting à prévoir<br><br>
+        <strong>🟡 Risque faible</strong><br>
+        Quota Ceph dépassé (300 Go) → crash stockage → purge régulière des snapshots anciens<br>
+        VM sans snapshot avant modif → perte de config → procédure de snapshot systématique
+      </div>
+    </section>
+
+    <section>
+      <h2>Stack Technique</h2>
+      <div class="schema-box">
+        <strong>🖥️ Proxmox VE</strong> — Hyperviseur type 1, stockage Ceph RBD, clones liées depuis templates Debian<br>
+        <strong>🛡️ Pare-feu</strong> — iptables / nftables, règles par service, NAT/PAT vers WAN<br>
+        <strong>📜 OpenSSL</strong> — Création IGC : CA racine, certificats serveurs et clients<br>
+        <strong>🔤 BIND9</strong> — Serveur DNS autorité, zones directes et inverses<br>
+        <strong>🔑 OpenLDAP</strong> — Annuaire d'entreprise, LDAPs/TLS, init LDIF, PAM NSS<br>
+        <strong>🔒 OpenVPN</strong> — VPN site-à-client, authentification double (certificat + LDAP)<br>
+        <strong>🖥️ Apache Guacamole</strong> — Bastion web SSH/RDP, auth LDAP, journalisation sessions<br>
+        <strong>📁 NFS</strong> — Partage de fichiers, exports restreints, auth PAM/LDAP<br>
+        <strong>📧 Postfix</strong> — SMTP, auth SASL + LDAP, TLS, filtrage<br>
+        <strong>📬 Dovecot</strong> — IMAP/POP3, TLS, auth LDAP, analyse logs<br>
+        <strong>🌐 Apache / nginx</strong> — HTTPS, virtual hosts, load balancing, proxy Squid
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🔐 PKI & Cryptographie</h3>
+          <p>Création d'une IGC complète avec OpenSSL : CA racine, chaîne de confiance, 
+          émission et révocation de certificats serveurs et clients.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>📂 Annuaire & Authentification</h3>
+          <p>Déploiement OpenLDAP, écriture LDIF, LDAPs/TLS, 
+          intégration PAM/NSS pour authentification centralisée sur tous les services Debian.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔒 VPN & Accès distant</h3>
+          <p>Configuration OpenVPN avec authentification mutuelle TLS + LDAP, 
+          routage et filtrage dédiés, accès nomade sécurisé au SI interne.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🛡️ Architecture de sécurité</h3>
+          <p>Conception d'une architecture defense-in-depth : pare-feu, DMZ, bastion, 
+          chiffrement de bout en bout, principe du moindre privilège et évaluation des risques.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bilan de l'Expérience</h2>
+      <p>
+        Cette SAE est la plus transversale de ma formation : elle combine réseaux, systèmes Linux, 
+        Windows Server, cryptographie et cybersécurité dans un projet cohérent qui ressemble 
+        à ce qu'on trouve réellement en entreprise. 
+        Déployer une <strong>IGC maison</strong> et l'utiliser pour sécuriser tous les protocoles 
+        du SI m'a donné une compréhension profonde de la chaîne de confiance TLS.
+      </p>
+      <p>
+        Proxmox et Ceph ont également été une découverte : gérer un environnement de virtualisation 
+        avec du stockage distribué et des clones liées est une compétence directement applicable 
+        dans un poste d'administrateur systèmes et réseaux.
+      </p>
+      <div class="challenge">
+        <h4>💡 Ce que j'ai retenu</h4>
+        <p>
+          La sécurité d'un SI ne se résume pas à un pare-feu. 
+          C'est une superposition de couches : chiffrement des protocoles (TLS), 
+          authentification centralisée (LDAP), accès distant maîtrisé (VPN + bastion), 
+          journalisation et analyse des logs. 
+          Chaque brique est indispensable, et la faiblesse de l'une compromet l'ensemble.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Project Summary (English)</h2>
+      <div class="challenge">
+        <h4>🌍 SAE 4.Cyber.01 – Securing an Information System</h4>
+        <p><strong>Team:</strong> Group of 3 | <strong>Platform:</strong> Proxmox + Ceph | <strong>Semester:</strong> 4th</p>
+        <p>
+          End-to-end design and deployment of a secured enterprise network on Proxmox virtualization 
+          platform with distributed Ceph storage. The project covers every layer of a real-world 
+          secure information system.
+        </p>
+        <p>
+          <strong>Key Components:</strong> Firewall with strict per-service rules, in-house PKI (CA + server/client certificates), 
+          OpenLDAP directory (LDAPs/TLS) for centralized authentication, OpenVPN with mutual TLS + LDAP auth, 
+          NFS shares with PAM/LDAP authentication, Apache Guacamole bastion with LDAP login and session logging, 
+          Postfix SMTP + Dovecot IMAP (both TLS-secured via our PKI), Apache load-balanced HTTPS web service 
+          and Squid authenticating proxy.
+        </p>
+        <p>
+          <strong>Outcome:</strong> A fully operational, defense-in-depth secured enterprise SI — 
+          every protocol encrypted with certificates from our own PKI, every user authenticated 
+          against a central LDAP directory, remote access secured through VPN + bastion, 
+          and a full risk assessment delivered alongside the technical presentation.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>
