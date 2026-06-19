@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 3.03 – Réseau Multi-Sites | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(68, 153, 255, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content { max-width: 800px; margin: 0 auto; }
+    .sae-meta { display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #4499ff, #66aaff);
+    }
+    .deliverable h4 { color: #4499ff; margin-bottom: 15px; font-size: 1.2rem; }
+    .challenge {
+      background: linear-gradient(135deg, rgba(68, 153, 255, 0.1), rgba(102, 170, 255, 0.05));
+      border: 1px solid rgba(68, 153, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 { color: #4499ff; margin-bottom: 15px; }
+    .back-button {
+      position: fixed;
+      top: 100px; left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .schema-box {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .code-block {
+      background: #0d1117;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #e6edf3;
+    }
+    .partie-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .p1 { background: rgba(80,220,140,0.15); border: 1px solid rgba(80,220,140,0.4); color: #50dc8c; }
+    .p2 { background: rgba(255,180,50,0.15); border: 1px solid rgba(255,180,50,0.4); color: #ffb432; }
+    .p3 { background: rgba(200,100,255,0.15); border: 1px solid rgba(200,100,255,0.4); color: #c864ff; }
+    .topo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 25px 0;
+    }
+    .topo-node {
+      background: var(--secondary-bg);
+      border: 1px solid rgba(68,153,255,0.4);
+      border-radius: 10px;
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      min-width: 90px;
+    }
+    .topo-node span { display: block; font-size: 1.2rem; margin-bottom: 4px; }
+    .topo-arr { color: #4499ff; font-size: 1.3rem; padding: 0 8px; font-weight: bold; }
+    .topo-arr small { display: block; font-size: 0.6rem; color: var(--text-secondary); text-align: center; white-space: nowrap; }
+    .as-box {
+      border: 1px solid rgba(68,153,255,0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 10px 0;
+      background: rgba(68,153,255,0.04);
+    }
+    .as-box strong { color: #4499ff; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="index.html#accueil">Accueil</a></li>
+        <li><a href="index.html#bio">À propos</a></li>
+        <li><a href="index.html#sae">SAE</a></li>
+        <li><a href="index.html#projets">Projets</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html#sae" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🌐 Architecture Réseau</div>
+          <div class="meta-item">📅 Semestre 3</div>
+          <div class="meta-item">👥 Groupe de 3</div>
+          <div class="meta-item">🔧 EVE-NG</div>
+        </div>
+        <h1>SAE 3.03 – Concevoir un Réseau Informatique Multi-Sites</h1>
+        <p class="hero-description">
+          Intégrateur réseau pour deux entreprises e-commerce (UC Exchange et ABC Conseil) présentes 
+          à Strasbourg, Nancy et Metz : architecture LAN hiérarchique, services réseau avancés 
+          (DNS, Web, Mail, AD) et interconnexion MPLS-VPN inter-AS via un FAI simulé sur EVE-NG.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">VLAN / VRRP</span>
+          <span class="skill-tag">MPLS-VPN</span>
+          <span class="skill-tag">BGP / MP-BGP</span>
+          <span class="skill-tag">NAT/PAT</span>
+          <span class="skill-tag">DNS / Apache</span>
+          <span class="skill-tag">EVE-NG</span>
+          <span class="skill-tag">Windows Server</span>
+          <span class="skill-tag">Linux</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        En tant qu'intégrateur réseau, nous avons été retenus pour concevoir et déployer l'architecture 
+        complète de deux entreprises e-commerce — <strong>UC Exchange</strong> et <strong>ABC Conseil</strong> — 
+        présentes chacune sur trois sites dans l'Est de la France : Strasbourg, Nancy et Metz.
+      </p>
+      <div class="challenge">
+        <h4>🎯 Mission globale</h4>
+        <p>
+          Chaque site héberge 4 services (informatique, direction, financier, salle des serveurs). 
+          Le siège social de chaque entreprise dispose de serveurs DNS, DHCP, Web, Mail et Active Directory. 
+          Les sites sont interconnectés via une offre <strong>MPLS-VPN</strong> auprès d'un FAI 
+          composé de 3 Systèmes Autonomes (AS 10, 20, 30), simulé sur EVE-NG.
+        </p>
+      </div>
+
+      <div class="schema-box">
+        <strong>Adressage IP fourni :</strong><br>
+        UC Exchange  → 10.242.xy.0/17<br>
+        ABC Conseil  → 10.252.xy.0/18<br>
+        <em style="color:var(--text-secondary)">x = numéro du site, y = numéro du VLAN dans le site</em>
+      </div>
+    </section>
+
+    <section>
+      <h2>Architecture des Sites</h2>
+
+      <div class="topo-row">
+        <div class="topo-node"><span>🏢</span>Strasbourg<br><small style="font-weight:400;color:var(--text-secondary)">Site 1</small></div>
+        <div class="topo-arr">⟷<small>MPLS-VPN</small></div>
+        <div class="topo-node"><span>🌐</span>FAI<br><small style="font-weight:400;color:var(--text-secondary)">AS10/20/30</small></div>
+        <div class="topo-arr">⟷<small>MPLS-VPN</small></div>
+        <div class="topo-node"><span>🏢</span>Nancy<br><small style="font-weight:400;color:var(--text-secondary)">Site 2</small></div>
+        <div class="topo-arr">⟷<small>MPLS-VPN</small></div>
+        <div class="topo-node"><span>🏢</span>Metz<br><small style="font-weight:400;color:var(--text-secondary)">Site 3</small></div>
+      </div>
+
+      <p>
+        Chaque site abonne ses routeurs CE (Customer Edge) à deux FAI pour garantir la haute disponibilité. 
+        L'architecture LAN interne est hiérarchique (modèle three-tier / two-tier selon la taille du site), 
+        avec des commutateurs multicouches assurant le routage inter-VLAN.
+      </p>
+    </section>
+
+    <section>
+      <h2>Le Projet en Trois Parties</h2>
+
+      <div class="deliverable light-effect">
+        <span class="partie-badge p1">🔀 Partie 1 — Administration des LAN</span>
+        <h4>Architecture commutée hiérarchique + Haute disponibilité</h4>
+        <p>
+          Mise en place d'une architecture commutée hiérarchique sur chaque site, 
+          avec des <strong>liens redondants entre commutateurs</strong> et le protocole 
+          <strong>Multi Spanning Tree (MST)</strong> pour éviter les boucles tout en conservant la redondance.
+        </p>
+        <p>
+          Création des <strong>VLANs</strong> par service (informatique, direction, financier, serveurs) 
+          en respectant le plan d'adressage global. Routage inter-VLAN opérationnel. 
+          Communication vers l'extérieur <strong>NATée via PAT</strong>. 
+          Haute disponibilité assurée par le protocole <strong>VRRP</strong> (Virtual Router Redundancy Protocol) 
+          en mode Actif/Passif.
+        </p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <span class="partie-badge p2">🖥️ Partie 2 — Services Réseau</span>
+        <h4>DNS + Web Apache + Mail SMTP/IMAP + Active Directory</h4>
+
+        <p><strong>Service DNS :</strong> Serveur primaire <code>ns.ucexchange.com</code> sous Windows Server 2019, 
+        serveur secondaire <code>ns2.ucexchange.com</code> sous Linux (ligne de commandes uniquement). 
+        Transferts de zone chiffrés avec DNSSEC. Accès SSH au secondaire filtré par sous-réseau ; 
+        les connexions refusées reçoivent un TCP reset pour tromper les scanners de ports.</p>
+
+        <p><strong>Service Web :</strong> Apache hébergeant deux virtual hosts — un site intranet (accès LAN uniquement) 
+        et un site public (accès internet). Déployé sur le même serveur que le DNS secondaire.</p>
+
+        <p><strong>Service Mail :</strong> SMTP + IMAP sur le serveur Linux. Comptes <em>admin</em> et <em>client</em> créés 
+        et testés via TELNET avec les commandes SMTP brutes.</p>
+
+        <p><strong>Active Directory :</strong> Déploiement de l'AD sur Windows Server 2019 en utilisant 
+        le domaine DNS déjà établi. Ajout d'utilisateurs et connexion depuis un poste Windows client validée.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <span class="partie-badge p3">🌍 Partie 3 — Interconnexion MPLS-VPN</span>
+        <h4>3 Systèmes Autonomes + BGP Route-Reflector + VRF</h4>
+
+        <p>
+          Maquette FAI complète sur EVE-NG avec <strong>3 AS distincts</strong> :
+        </p>
+
+        <div class="as-box">
+          <strong>AS 10</strong> — Routage interne RIP, sessions BGP avec Route-Reflector (P1 = RR)<br>
+          <strong>AS 20</strong> — Routage interne RIP, sessions BGP avec Route-Reflector<br>
+          <strong>AS 30</strong> — Routage interne OSPF, sessions BGP avec Route-Reflector
+        </div>
+
+        <p>
+          Sessions <strong>MP-BGP</strong> configurées entre les ASBR (AS Border Routers) pour propager 
+          les routes VPNv4. <strong>VRF</strong> créées sur les PE (Provider Edge) pour isoler les deux clients :
+        </p>
+
+        <div class="schema-box">
+          ABC Conseil  → VRF : RD 10:1 / RT 10:1 — routage PE↔CE via RIP<br>
+          UC Exchange  → VRF : RD 10:2 / RT 10:2 — routage PE↔CE statique
+        </div>
+
+        <p>
+          Les sessions BGP sont montées en <strong>peer-group</strong> pour simplifier la configuration. 
+          Seuls les préfixes clients transitent dans MP-BGP — les préfixes d'interconnexion FAI 
+          sont filtrés. Pour UC Exchange (parcours FI), translation NAT publique du serveur web de Metz 
+          exposé via l'adresse publique <code>11.11.11.1</code>.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Configurations Clés</h2>
+
+      <p>Haute disponibilité VRRP sur une interface VLAN :</p>
+      <div class="code-block">interface vlan 10
+ ip address 10.242.11.252 255.255.255.0
+ vrrp 1 ip 10.242.11.254        ! IP virtuelle passerelle
+ vrrp 1 priority 110             ! Routeur MASTER
+ vrrp 1 timers advertise msec 100
+ vrrp authentication Finger</div>
+
+      <p>Configuration BGP avec Route-Reflector et peer-group (AS 10) :</p>
+      <div class="code-block">router bgp 10
+ bgp router-id 10.10.1.1
+ !
+ neighbor IBGP peer-group
+ neighbor IBGP remote-as 10
+ neighbor IBGP update-source Loopback0
+ neighbor IBGP route-reflector-client   ! P1 = RR
+ neighbor 10.10.2.2 peer-group IBGP
+ neighbor 10.10.3.3 peer-group IBGP
+ !
+ address-family vpnv4
+  neighbor IBGP activate
+  neighbor IBGP send-community extended</div>
+
+      <p>Création de VRF pour le client UC Exchange sur un PE :</p>
+      <div class="code-block">ip vrf UC_Exchange
+ rd 10:2
+ route-target export 10:2
+ route-target import 10:2
+!
+interface e0/1
+ ip vrf forwarding UC_Exchange
+ ip address 172.16.20.1 255.255.255.252   ! Lien vers CE</div>
+
+      <p>PAT vers internet sur le routeur de sortie :</p>
+      <div class="code-block">ip nat inside source list 1 interface e0/0 overload
+access-list 1 permit 10.242.0.0 0.0.127.255   ! Tout le LAN UC Exchange
+!
+interface e0/0
+ ip nat outside
+interface e0/1
+ ip nat inside</div>
+    </section>
+
+    <section>
+      <h2>Tests de Validation</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>✅ LAN & VLAN</h3>
+          <p>Vérification de la connectivité inter-VLAN, du routage via les switches de distribution, 
+          et du basculement VRRP en coupant l'interface du routeur MASTER.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>✅ Services Réseau</h3>
+          <p>Résolution DNS (nslookup), accès aux deux virtual hosts Apache, 
+          envoi de mail via TELNET SMTP, et connexion d'un poste au domaine Active Directory.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>✅ Redondance MPLS</h3>
+          <p>Coupure successive de PE2_ASBR2 puis ASBR4 : vérification que les pings 
+          inter-sites et vers le serveur web public restent opérationnels grâce à la redondance BGP.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>✅ Filtrage BGP</h3>
+          <p>Traceroute depuis UC Exchange Strasbourg → Metz : validation que le trafic 
+          passe bien par l'AS 20. Vérification que Metz↔Nancy pour ABC Conseil est bloqué (hub-and-spoke).</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🔀 Architecture LAN avancée</h3>
+          <p>Conception hiérarchique multi-sites, VLANs, trunks 802.1Q, MST, VRRP 
+          et routage inter-VLAN sur switches multicouches.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🌍 Réseaux opérateurs</h3>
+          <p>Maîtrise de BGP, MP-BGP, MPLS-VPN, VRF, Route-Reflector et sessions inter-AS entre ASBR.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🖥️ Services réseau Linux/Windows</h3>
+          <p>Déploiement DNS (BIND), serveur web Apache (virtual hosts), 
+          SMTP/IMAP (Postfix/Dovecot) et Active Directory sur Windows Server 2019.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔐 Sécurité réseau</h3>
+          <p>NAT/PAT, filtrage BGP par route-map, filtrage SSH par ACL avec TCP reset, 
+          DNSSEC et zone DMZ pour les serveurs exposés.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bilan de l'Expérience</h2>
+      <p>
+        Cette SAE est sans doute la plus ambitieuse et la plus complète de ma formation. 
+        Elle m'a mis dans la peau d'un véritable <strong>intégrateur réseau</strong> face à un cahier des charges 
+        réaliste : deux clients, trois sites, un FAI multi-AS, des services métier complets et des contraintes 
+        de sécurité et de haute disponibilité à tous les niveaux.
+      </p>
+      <p>
+        La partie MPLS-VPN a été particulièrement enrichissante : comprendre comment BGP et MP-BGP 
+        permettent d'isoler les flux de deux clients sur la même infrastructure opérateur 
+        via les VRF est une compétence directement applicable en entreprise.
+      </p>
+      <div class="challenge">
+        <h4>💡 Ce que j'ai retenu</h4>
+        <p>
+          Un réseau d'entreprise multi-sites, c'est bien plus que de la connectivité : 
+          c'est de la redondance à chaque couche, du filtrage précis des routes BGP, 
+          des services métier fiables et une DMZ bien dimensionnée. 
+          Chaque choix d'architecture a un impact direct sur la disponibilité et la sécurité de l'infrastructure.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Project Summary (English)</h2>
+      <div class="challenge">
+        <h4>🌍 SAE 3.03 – Multi-Site Network Design</h4>
+        <p><strong>Team:</strong> Group of 3 | <strong>Platform:</strong> EVE-NG | <strong>Semester:</strong> 3rd</p>
+        <p>
+          Acting as a network integrator, we designed and deployed the complete infrastructure for two 
+          e-commerce companies (UC Exchange and ABC Conseil) across three geographical sites 
+          (Strasbourg, Nancy, Metz).
+        </p>
+        <p>
+          <strong>LAN:</strong> Hierarchical switched architecture with VLANs, MST, inter-VLAN routing, 
+          PAT and VRRP high availability. <strong>Services:</strong> DNS (BIND + Windows Server 2019), 
+          Apache dual virtual host, SMTP/IMAP mail server and Active Directory. 
+          <strong>WAN:</strong> Full ISP simulation on EVE-NG with 3 AS (RIP/OSPF internally), 
+          MP-BGP with Route-Reflectors, MPLS-VPN with per-customer VRFs (RD/RT 10:1 and 10:2), 
+          BGP filtering for traffic engineering, and public NAT for web server exposure.
+        </p>
+        <p>
+          <strong>Key Outcome:</strong> End-to-end validated multi-site infrastructure with redundancy 
+          tested at every layer — from VRRP failover on LANs to BGP path redundancy across ISP AS boundaries.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>
