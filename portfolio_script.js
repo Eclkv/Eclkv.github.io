@@ -587,29 +587,52 @@ function optimizePerformance() {
 
 // Initialiser les optimisations
 optimizePerformance();
-// Gestion du nouveau formulaire de contact (nouvelle section)
-function handleContactSubmit() {
+// Formulaire de contact — envoi via Formspree
+async function handleContactSubmit() {
     const name    = document.getElementById('contact-name')?.value.trim();
     const email   = document.getElementById('contact-email')?.value.trim();
     const subject = document.getElementById('contact-subject')?.value.trim();
     const message = document.getElementById('contact-message')?.value.trim();
 
+    // Validation simple
     if (!name || !email || !message) {
         const form = document.getElementById('contactForm');
-        if (form) gsap.to(form, { x: -8, duration: 0.08, repeat: 5, yoyo: true, ease: "power2.inOut", onComplete: () => gsap.set(form, {x:0}) });
+        if (form && typeof gsap !== 'undefined') {
+            gsap.to(form, { x: -8, duration: 0.08, repeat: 5, yoyo: true, ease: "power2.inOut", onComplete: () => gsap.set(form, {x: 0}) });
+        }
         return;
     }
 
     const btn = document.getElementById('submitBtn');
-    if (btn) { btn.disabled = true; btn.querySelector('.submit-btn-text').textContent = 'Ouverture…'; }
+    const btnText = btn ? btn.querySelector('.submit-btn-text') : null;
+    if (btn) { btn.disabled = true; }
+    if (btnText) btnText.textContent = 'Envoi en cours…';
 
-    const subjectEncoded = encodeURIComponent(subject || 'Contact depuis le portfolio');
-    const bodyEncoded = encodeURIComponent('Nom: ' + name + '\nEmail: ' + email + '\n\n' + message);
-    window.location.href = 'mailto:eclkv.pro@gmail.com?subject=' + subjectEncoded + '&body=' + bodyEncoded;
+    try {
+        // Formspree — remplace YOUR_FORM_ID par ton ID après inscription sur formspree.io
+        const response = await fetch('https://formspree.io/f/xdkonkzb', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ name, email, subject: subject || 'Contact portfolio', message })
+        });
 
-    setTimeout(function() {
-        var success = document.getElementById('formSuccess');
-        if (success) success.classList.add('visible');
-        if (btn) { btn.disabled = false; btn.querySelector('.submit-btn-text').textContent = 'Envoyer le message'; }
-    }, 900);
+        if (response.ok) {
+            // Succès
+            const success = document.getElementById('formSuccess');
+            if (success) success.classList.add('visible');
+            // Reset champs
+            ['contact-name','contact-email','contact-subject','contact-message'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+        } else {
+            throw new Error('Erreur serveur');
+        }
+    } catch (err) {
+        console.error('Erreur envoi:', err);
+        if (btnText) btnText.textContent = 'Erreur, réessaie';
+    } finally {
+        if (btn) btn.disabled = false;
+        if (btnText && btnText.textContent === 'Envoi en cours…') btnText.textContent = 'Envoyer le message';
+    }
 }
