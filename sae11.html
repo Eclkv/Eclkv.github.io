@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 3.01 – Prise Connectée Intelligente Wifi | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(68, 153, 255, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content { max-width: 800px; margin: 0 auto; }
+    .sae-meta { display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #4499ff, #66aaff);
+    }
+    .deliverable h4 { color: #4499ff; margin-bottom: 15px; font-size: 1.2rem; }
+    .challenge {
+      background: linear-gradient(135deg, rgba(68, 153, 255, 0.1), rgba(102, 170, 255, 0.05));
+      border: 1px solid rgba(68, 153, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 { color: #4499ff; margin-bottom: 15px; }
+    .back-button {
+      position: fixed;
+      top: 100px; left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .schema-box {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .code-block {
+      background: #0d1117;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #e6edf3;
+    }
+    .archi-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+    .archi-node {
+      background: var(--secondary-bg);
+      border: 1px solid rgba(68, 153, 255, 0.4);
+      border-radius: 12px;
+      padding: 16px 22px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 110px;
+    }
+    .archi-node span { display: block; font-size: 1.4rem; margin-bottom: 6px; }
+    .archi-arrow { color: #4499ff; font-size: 1.4rem; padding: 0 10px; font-weight: bold; }
+    .archi-arrow small { display: block; font-size: 0.65rem; color: var(--text-secondary); text-align: center; white-space: nowrap; }
+    .cdc-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .cdc1 { background: rgba(80,220,140,0.15); border: 1px solid rgba(80,220,140,0.4); color: #50dc8c; }
+    .cdc2 { background: rgba(255,180,50,0.15); border: 1px solid rgba(255,180,50,0.4); color: #ffb432; }
+    .cdc3 { background: rgba(200,100,255,0.15); border: 1px solid rgba(200,100,255,0.4); color: #c864ff; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="index.html#accueil">Accueil</a></li>
+        <li><a href="index.html#bio">À propos</a></li>
+        <li><a href="index.html#sae">SAE</a></li>
+        <li><a href="index.html#projets">Projets</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html#sae" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🔌 IoT & Domotique</div>
+          <div class="meta-item">📅 Semestre 3</div>
+          <div class="meta-item">⏱️ 23 heures</div>
+          <div class="meta-item">👥 Groupe de 4</div>
+        </div>
+        <h1>SAE 3.01 – Prise Connectée Intelligente Wifi</h1>
+        <p class="hero-description">
+          Conception et réalisation d'une prise électrique connectée en Wifi : schéma électronique sur EasyEDA,
+          broker MQTT Mosquitto sur Raspberry Pi, serveur Django, interface web temps réel
+          et capteur de température DS18B20.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">ESP8266</span>
+          <span class="skill-tag">MQTT</span>
+          <span class="skill-tag">Raspberry Pi</span>
+          <span class="skill-tag">Django</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Arduino</span>
+          <span class="skill-tag">EasyEDA</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Ce projet en groupe de 4 étudiants avait pour but de reproduire une prise électrique connectée
+        de type <strong>CHACON</strong> — contrôlable via Wifi, depuis un bouton physique,
+        une interface web et une application Android. L'ensemble du système repose sur un
+        <strong>Raspberry Pi</strong> hébergeant un broker MQTT privé Mosquitto et un serveur web Django.
+      </p>
+      <div class="challenge">
+        <h4>🎯 Objectif global</h4>
+        <p>
+          Concevoir l'électronique d'une prise connectée Wifi, implémenter la communication
+          via le protocole <strong>MQTT</strong>, et proposer des interfaces de contrôle
+          (web + Android) permettant d'allumer/éteindre des appareils à distance
+          et d'afficher leur état en temps réel ainsi que la température ambiante mesurée.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Architecture du Système</h2>
+      <div class="archi-flow">
+        <div class="archi-node"><span>🔘</span>ESP8266<br><small style="font-weight:400;color:var(--text-secondary)">prise + LED</small></div>
+        <div class="archi-arrow">→<small>MQTT pub/sub</small></div>
+        <div class="archi-node"><span>🖥️</span>Mosquitto<br><small style="font-weight:400;color:var(--text-secondary)">broker RPi</small></div>
+        <div class="archi-arrow">→<small>paho-mqtt</small></div>
+        <div class="archi-node"><span>🐍</span>Django<br><small style="font-weight:400;color:var(--text-secondary)">serveur web</small></div>
+        <div class="archi-arrow">→<small>HTTP/JSON</small></div>
+        <div class="archi-node"><span>🌐</span>Interface<br><small style="font-weight:400;color:var(--text-secondary)">web + Android</small></div>
+      </div>
+      <p>
+        Le microcontrôleur <strong>ESP8266</strong> est le cœur de la prise : il gère le relais d'alimentation,
+        la LED d'état, le bouton physique et le capteur DS18B20, tout en publiant et souscrivant aux topics MQTT.
+        Le Raspberry Pi centralise les messages et sert l'interface web via Django.
+      </p>
+    </section>
+
+    <section>
+      <h2>Cahier des Charges — Étapes du Projet</h2>
+
+      <div class="deliverable light-effect">
+        <span class="cdc-badge cdc1">✅ CdC 1 — Base</span>
+        <h4>Schéma électronique + Serveur Web</h4>
+        <p>Proposition du schéma structurel de la carte électronique sur <strong>EasyEDA</strong>,
+        en justifiant les composants selon les critères de taille, poids, consommation et prix.
+        Composant principal retenu : <strong>ESP8266</strong> pour son Wifi intégré et son faible coût (~3€).</p>
+        <p>Implémentation du serveur web Django sur Raspberry Pi, capable de
+        <strong>commander 2 prises en ON/OFF</strong> avec retour d'état en temps réel.
+        Des LEDs physiques sur le RPi indiquent visuellement l'état de chaque prise.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <span class="cdc-badge cdc2">⚡ CdC 2 — Sécurité & Configuration</span>
+        <h4>Application Android + Broker Mosquitto + WiFiManager</h4>
+        <p>Développement d'une <strong>application Android</strong> reprenant les fonctionnalités
+        de la page web (contrôle ON/OFF, affichage des états en temps réel).
+        Sécurisation de l'accès web par <strong>login et mot de passe</strong>.</p>
+        <p>Installation et configuration d'un <strong>broker MQTT Mosquitto privé</strong> sur le RPi.
+        Utilisation de la bibliothèque <strong>WiFiManager (tzapu)</strong> pour permettre
+        la configuration du réseau Wifi lors de la première installation (mode AP → STA).</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <span class="cdc-badge cdc3">🌡️ CdC 3 — Fonctionnalités Avancées</span>
+        <h4>Contrôle global + Capteur DS18B20</h4>
+        <p>Ajout d'un bouton <strong>"Tout allumer / Tout éteindre"</strong> sur l'interface web et Android,
+        se synchronisant automatiquement si toutes les prises passent dans le même état via des actions individuelles.</p>
+        <p>Intégration du <strong>capteur de température DS18B20</strong> (protocole One-Wire)
+        avec affichage en temps réel de la température sur l'interface web et l'application Android.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Extraits de Code</h2>
+
+      <p>Client MQTT Python souscrivant au topic d'état de la prise :</p>
+      <div class="code-block">import paho.mqtt.client as mqtt
+
+BROKER = "lumenyana.local"
+PORT   = 1883
+TOPIC  = "prise1/etat"
+
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        client.subscribe(TOPIC)   # Souscription dès la connexion
+
+def on_message(client, userdata, msg):
+    etat = msg.payload.decode()   # "ON" ou "OFF"
+    # → mise à jour BDD + interface web
+
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
+client.on_connect = on_connect
+client.on_message = on_message
+client.connect(BROKER, PORT, 60)
+client.loop_forever()</div>
+
+      <p>Rafraîchissement automatique de l'interface web toutes les 2 secondes :</p>
+      <div class="code-block">async function refreshEtats() {
+    const response = await fetch("/get_etats/");
+    const data     = await response.json();
+
+    for (const [nom, etat] of Object.entries(data.etats)) {
+        const btn = document.getElementById("btn-" + nom);
+        if (etat === "ON") {
+            btn.classList.replace("off", "on");
+            btn.innerHTML = "⚡ Éteindre";
+        } else {
+            btn.classList.replace("on", "off");
+            btn.innerHTML = "💡 Allumer";
+        }
+    }
+
+    // Mise à jour des températures
+    for (const [nom, temp] of Object.entries(data.temperatures)) {
+        const el = document.getElementById("temp-" + nom);
+        if (el && temp !== null)
+            el.querySelector("span").textContent = temp + " °C";
+    }
+}
+setInterval(refreshEtats, 2000);   // Auto-refresh toutes les 2s</div>
+    </section>
+
+    <section>
+      <h2>Stack Technique</h2>
+      <div class="schema-box">
+        <strong>🔧 ESP8266 (NodeMCU)</strong> — Microcontrôleur Wifi intégré, programmé via IDE Arduino + PubSubClient MQTT<br>
+        <strong>🌡️ DS18B20</strong> — Capteur de température One-Wire, bibliothèque MAX31850 DallasTemp (Adafruit)<br>
+        <strong>📡 Mosquitto</strong> — Broker MQTT open-source privé hébergé sur Raspberry Pi<br>
+        <strong>🐍 paho-mqtt</strong> — Client MQTT Python pour la liaison broker ↔ Django<br>
+        <strong>🌐 Django</strong> — Framework web Python : vues, templates, API JSON d'états<br>
+        <strong>📱 Android Studio</strong> — Application mobile de contrôle ON/OFF et affichage températures<br>
+        <strong>📐 EasyEDA</strong> — Logiciel de schéma électronique pour la conception de la carte PCB<br>
+        <strong>⚡ Relais + Transistor</strong> — Commande du circuit 230V depuis l'ESP8266 (isolation galvanique)
+      </div>
+    </section>
+
+    <section>
+      <h2>Composants Électroniques Retenus</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>📶 ESP8266</h3>
+          <p>Microcontrôleur principal : Wifi 802.11 b/g/n intégré, compact, faible consommation et très économique (~3€). Standard de l'IoT embarqué.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>⚡ Relais 5V</h3>
+          <p>Commandé par transistor pour basculer l'alimentation 230V. Isolation galvanique entre la partie commande basse tension et la partie puissance.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🌡️ DS18B20</h3>
+          <p>Capteur numérique One-Wire, précision ±0,5°C, plage -55°C à +125°C. Un seul fil de données pour plusieurs capteurs en cascade.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔋 Convertisseur AC/DC</h3>
+          <p>Module PCB alimenté en 230V secteur, sortie 5V régulée pour l'ESP8266 et les périphériques. Sélectionné sur Farnell.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>📡 Protocole MQTT</h3>
+          <p>Maîtrise du modèle publish/subscribe, gestion des topics, QoS, et déploiement d'un broker privé Mosquitto sur Raspberry Pi.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔌 Électronique embarquée</h3>
+          <p>Schémas sur EasyEDA, câblage ESP8266, commande de relais par transistor et interfaçage de capteurs One-Wire DS18B20.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🌐 Développement Full-Stack</h3>
+          <p>Backend Django + API JSON, interface web dynamique (fetch + setInterval), et application Android native.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🤝 Travail en équipe</h3>
+          <p>Coordination à 4 sur tâches parallèles : électronique, firmware Arduino, backend web et app mobile développés simultanément.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bilan de l'Expérience</h2>
+      <p>
+        Ce projet m'a donné une vision concrète de l'<strong>IoT</strong> : comment un objet physique
+        communique avec un serveur central, comment les interfaces se synchronisent en temps réel,
+        et comment une architecture simple (ESP8266 + MQTT + Django) peut aboutir à un produit
+        réellement fonctionnel, proche des objets connectés du marché.
+      </p>
+      <p>
+        Travailler à 4 sur des tâches parallèles a aussi renforcé mes compétences en coordination
+        et en intégration de sous-systèmes développés indépendamment — une réalité du travail en équipe IT.
+      </p>
+      <div class="challenge">
+        <h4>💡 Ce que j'ai retenu</h4>
+        <p>
+          Le protocole MQTT est élégamment simple et redoutablement efficace pour l'IoT :
+          un broker central, des topics clairs, et n'importe quel client (Python, Arduino, Android)
+          peut publier ou souscrire en quelques lignes. C'est cette légèreté qui en fait
+          le standard incontournable des objets connectés embarqués.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Project Summary (English)</h2>
+      <div class="challenge">
+        <h4>🌍 SAE 3.01 – Smart WiFi Connected Plug</h4>
+        <p><strong>Duration:</strong> 23 hours | <strong>Team:</strong> Group of 4 | <strong>Semester:</strong> 3rd</p>
+        <p>
+          This project involved designing and building a WiFi-connected smart plug similar to commercial
+          products like the CHACON smart plug. The system spans hardware design, embedded firmware,
+          and a full web/mobile control interface.
+        </p>
+        <p>
+          <strong>Architecture:</strong> ESP8266 microcontroller (WiFi + relay + DS18B20 temperature sensor)
+          communicating via MQTT with a private Mosquitto broker on a Raspberry Pi.
+          A Django web server provides a real-time control interface; an Android app mirrors all functionality.
+        </p>
+        <p>
+          <strong>Key Features:</strong> ON/OFF control of 2+ plugs with real-time state feedback,
+          physical push button + LED indicator, live temperature monitoring, login-secured web interface,
+          and WiFiManager for first-boot network setup (AP mode → STA mode).
+        </p>
+        <p>
+          <strong>Outcome:</strong> A fully functional connected plug prototype — from PCB schematic (EasyEDA)
+          to working software stack — deployed on a Raspberry Pi and controllable from web browser and Android.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>
