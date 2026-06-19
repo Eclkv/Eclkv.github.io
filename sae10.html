@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAE 3.04 – Découvrir le pentesting | Enis Celikovic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <style>
+    .sae-hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      background: radial-gradient(ellipse at top, rgba(68, 153, 255, 0.1) 0%, transparent 50%);
+      position: relative;
+      margin-top: 80px;
+    }
+    .sae-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .sae-meta {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      background: var(--secondary-bg);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .deliverable {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #4499ff, #66aaff);
+    }
+    .deliverable h4 {
+      color: #4499ff;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+    .challenge {
+      background: linear-gradient(135deg, rgba(68, 153, 255, 0.1), rgba(102, 170, 255, 0.05));
+      border: 1px solid rgba(68, 153, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .challenge h4 {
+      color: #4499ff;
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .back-button:hover {
+      transform: scale(1.1);
+      background: var(--accent-color);
+      color: var(--primary-bg);
+    }
+    .schema-box {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .category-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .badge-osint    { background: rgba(255, 180, 50, 0.15); border: 1px solid rgba(255, 180, 50, 0.4); color: #ffb432; }
+    .badge-crypto   { background: rgba(68, 153, 255, 0.15); border: 1px solid rgba(68, 153, 255, 0.4); color: #4499ff; }
+    .badge-web      { background: rgba(80, 220, 140, 0.15); border: 1px solid rgba(80, 220, 140, 0.4); color: #50dc8c; }
+    .badge-cloud    { background: rgba(200, 100, 255, 0.15); border: 1px solid rgba(200, 100, 255, 0.4); color: #c864ff; }
+    .badge-password { background: rgba(255, 80, 80, 0.15);  border: 1px solid rgba(255, 80, 80, 0.4);  color: #ff5050; }
+    .badge-network  { background: rgba(50, 200, 220, 0.15); border: 1px solid rgba(50, 200, 220, 0.4); color: #32c8dc; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">EC</div>
+      <ul class="nav-links">
+        <li><a href="index.html#accueil">Accueil</a></li>
+        <li><a href="index.html#bio">À propos</a></li>
+        <li><a href="index.html#sae">SAE</a></li>
+        <li><a href="index.html#projets">Projets</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <a href="index.html#sae" class="back-button">←</a>
+
+  <div class="container">
+    <section class="sae-hero">
+      <div class="sae-content">
+        <div class="sae-meta">
+          <div class="meta-item">🛡️ Cybersécurité</div>
+          <div class="meta-item">📅 Semestre 3</div>
+          <div class="meta-item">⏱️ 50 heures</div>
+          <div class="meta-item">🎯 Root-Me</div>
+        </div>
+        <h1>SAE 3.04 – Découvrir le pentesting</h1>
+        <p class="hero-description">
+          Introduction aux techniques de test d'intrusion à travers des challenges pratiques sur 
+          la plateforme Root-Me. OSINT, cracking de mots de passe, sécurité cloud AWS, 
+          vulnérabilités web et bien plus encore.
+        </p>
+        <div class="sae-skills">
+          <span class="skill-tag">OSINT</span>
+          <span class="skill-tag">Password Cracking</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Root-Me</span>
+          <span class="skill-tag">Kali Linux</span>
+          <span class="skill-tag">Analyse réseau</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contexte et Objectifs</h2>
+      <p>
+        Cette SAE constitue une première immersion concrète dans le monde du pentesting (test d'intrusion). 
+        Plutôt qu'un cadre purement théorique, le professeur nous a donné accès à la plateforme 
+        <strong>Root-Me</strong>, référence mondiale dans l'entraînement à la cybersécurité offensive et défensive, 
+        pour résoudre des challenges dans des domaines variés.
+      </p>
+
+      <div class="challenge">
+        <h4>🎯 Mission</h4>
+        <p>
+          Progresser sur Root-Me en résolvant un maximum de challenges dans des catégories ciblées 
+          (OSINT, cryptographie, web, cloud, réseau…), tout en documentant les méthodologies 
+          employées pour chaque type d'attaque ou d'investigation.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Catégories de Challenges</h2>
+
+      <div class="project-grid">
+
+        <div class="project-item light-effect">
+          <span class="category-badge badge-osint">🔍 OSINT</span>
+          <h3>Renseignement en source ouverte</h3>
+          <p>Investigation numérique à partir de sources publiques uniquement : 
+          réseaux sociaux, moteurs de recherche, métadonnées de fichiers, 
+          registres WHOIS, géolocalisation d'images, et bien d'autres techniques 
+          pour retrouver des informations cachées en plain sight.</p>
+        </div>
+
+        <div class="project-item light-effect">
+          <span class="category-badge badge-password">🔑 Password Cracking</span>
+          <h3>Retrouver des mots de passe</h3>
+          <p>Attaques par dictionnaire et force brute sur des hashs MD5, SHA1, bcrypt… 
+          Utilisation d'outils comme Hashcat et John the Ripper, 
+          exploitation de wordlists (RockYou), et compréhension des failles 
+          de stockage de mots de passe mal sécurisés.</p>
+        </div>
+
+        <div class="project-item light-effect">
+          <span class="category-badge badge-cloud">☁️ Cloud AWS</span>
+          <h3>Sécurité des environnements cloud</h3>
+          <p>Exploration des mauvaises configurations courantes sur AWS : 
+          buckets S3 mal sécurisés, clés d'accès exposées, métadonnées d'instance EC2 
+          accessibles sans authentification, et erreurs de gestion des permissions IAM.</p>
+        </div>
+
+        <div class="project-item light-effect">
+          <span class="category-badge badge-web">🌐 Sécurité Web</span>
+          <h3>Vulnérabilités applicatives</h3>
+          <p>Exploitation de failles classiques : injections SQL, failles XSS, 
+          traversée de répertoires, mauvaise gestion des sessions, 
+          fichiers de configuration exposés, et contournement d'authentification.</p>
+        </div>
+
+        <div class="project-item light-effect">
+          <span class="category-badge badge-crypto">🔐 Cryptographie</span>
+          <h3>Analyse et cassage de chiffrements</h3>
+          <p>Identification et exploitation de chiffrements faibles : César, Vigenère, 
+          encodages Base64/Hex, chiffrements XOR, et analyse de fréquences 
+          pour retrouver des messages cachés ou des clés secrètes.</p>
+        </div>
+
+        <div class="project-item light-effect">
+          <span class="category-badge badge-network">📡 Analyse Réseau</span>
+          <h3>Forensique réseau</h3>
+          <p>Analyse de captures réseau (fichiers PCAP) avec Wireshark pour 
+          reconstituer des sessions, extraire des identifiants transmis en clair, 
+          détecter des activités suspectes et comprendre les protocoles applicatifs.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <h2>Outils Utilisés</h2>
+
+      <div class="schema-box">
+        <strong>🖥️ Kali Linux</strong> — Distribution dédiée au pentesting, environnement de travail principal<br>
+        <strong>🔎 OSINT Framework</strong> — Cartographie des sources et outils d'investigation open source<br>
+        <strong>🔓 Hashcat / John the Ripper</strong> — Cracking de hashs par dictionnaire et force brute<br>
+        <strong>🌐 Burp Suite</strong> — Proxy d'interception pour analyser et manipuler les requêtes HTTP<br>
+        <strong>📡 Wireshark</strong> — Capture et analyse de trames réseau (PCAP)<br>
+        <strong>☁️ AWS CLI</strong> — Interface en ligne de commande pour interagir avec les services Amazon<br>
+        <strong>🐚 Bash / Python</strong> — Scripts d'automatisation pour l'énumération et l'exploitation<br>
+        <strong>🗺️ Maltego / Shodan</strong> — Cartographie de la surface d'attaque et recherche d'équipements exposés
+      </div>
+    </section>
+
+    <section>
+      <h2>Méthodologie Pentesting</h2>
+      <p>Chaque challenge nous a amenés à respecter une démarche structurée :</p>
+
+      <div class="deliverable light-effect">
+        <h4>1️⃣ Reconnaissance</h4>
+        <p>Collecte d'informations passives (OSINT) et actives sur la cible : 
+        identification des services exposés, de la surface d'attaque, 
+        des technologies utilisées et des vecteurs d'entrée potentiels.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>2️⃣ Enumération</h4>
+        <p>Exploration approfondie de la cible : scan de ports, identification de versions, 
+        découverte de répertoires cachés, analyse des headers HTTP, 
+        et récupération de métadonnées.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>3️⃣ Exploitation</h4>
+        <p>Utilisation des vulnérabilités identifiées pour atteindre l'objectif du challenge : 
+        récupération d'un flag, d'un mot de passe, d'un fichier sensible ou 
+        obtention d'un accès non autorisé.</p>
+      </div>
+
+      <div class="deliverable light-effect">
+        <h4>4️⃣ Documentation</h4>
+        <p>Rédaction d'un write-up pour chaque challenge résolu : contexte, 
+        indices identifiés, étapes suivies, outils utilisés et leçons apprises. 
+        Une bonne documentation est la marque d'un pentesteur rigoureux.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Compétences Développées</h2>
+      <div class="project-grid">
+        <div class="project-item light-effect">
+          <h3>🕵️ Mindset Attaquant</h3>
+          <p>Apprendre à raisonner comme un attaquant : chercher ce qui ne devrait pas être là, 
+          questionner chaque configuration, ne pas se fier aux apparences.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>🔧 Maîtrise des Outils</h3>
+          <p>Prise en main d'une dizaine d'outils professionnels utilisés 
+          quotidiennement par les pentesters et les équipes SOC en entreprise.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>☁️ Sécurité Cloud</h3>
+          <p>Compréhension des erreurs de configuration les plus fréquentes sur AWS, 
+          environnement cloud dominant dans les entreprises aujourd'hui.</p>
+        </div>
+        <div class="project-item light-effect">
+          <h3>📝 Rédaction de Write-ups</h3>
+          <p>Capacité à documenter et expliquer clairement une démarche technique, 
+          compétence clé pour les rapports de pentest en milieu professionnel.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bilan de l'Expérience</h2>
+      <p>
+        Cette SAE a été une révélation pour moi. Passer de la théorie à la pratique sur une plateforme 
+        comme Root-Me, c'est comprendre concrètement pourquoi la sécurité informatique est un domaine 
+        aussi vaste et stimulant. Chaque challenge résolu est une petite victoire qui pousse à aller plus loin.
+      </p>
+      <p>
+        Les 50 heures sont passées vite, tant la progression sur Root-Me est addictive. 
+        Cette expérience a renforcé mon envie de m'orienter vers la cybersécurité, 
+        que ce soit en équipe offensive (red team) ou dans un rôle de consultant en sécurité.
+      </p>
+
+      <div class="challenge">
+        <h4>💡 Ce que j'ai retenu</h4>
+        <p>
+          La sécurité n'est pas une case à cocher, c'est une posture permanente. 
+          Un bucket S3 ouvert, un hash MD5 en base de données, 
+          une clé AWS dans un fichier de config commité sur GitHub — 
+          autant d'erreurs banales qui, en conditions réelles, 
+          peuvent compromettre une infrastructure entière.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Project Summary (English)</h2>
+      <div class="challenge">
+        <h4>🌍 SAE 3.04 – Introduction to Penetration Testing</h4>
+        <p>
+          <strong>Duration:</strong> 50 hours | <strong>Platform:</strong> Root-Me | <strong>Semester:</strong> 3rd
+        </p>
+        <p>
+          This module introduced penetration testing through hands-on challenges on Root-Me, 
+          a leading cybersecurity training platform. Rather than a purely theoretical approach, 
+          we practiced offensive security techniques across multiple domains.
+        </p>
+        <p>
+          <strong>Challenge Categories:</strong> OSINT (open-source intelligence gathering), 
+          password cracking (dictionary attacks, hash analysis), AWS cloud security misconfigurations, 
+          web application vulnerabilities, cryptography analysis, and network forensics (PCAP analysis).
+        </p>
+        <p>
+          <strong>Tools Used:</strong> Kali Linux, Hashcat, John the Ripper, Burp Suite, 
+          Wireshark, AWS CLI, Bash/Python scripting, Shodan, Maltego.
+        </p>
+        <p>
+          <strong>Key Takeaway:</strong> Thinking like an attacker is the best way to build stronger defenses. 
+          This experience strengthened my interest in pursuing a career in cybersecurity, 
+          particularly in penetration testing or security consulting.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 – Enis Celikovic. Conçu avec passion pour l'excellence technique.</p>
+    </div>
+  </footer>
+
+  <script src="portfolio_script.js"></script>
+</body>
+</html>
