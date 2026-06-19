@@ -610,7 +610,7 @@ async function handleContactSubmit() {
 
     try {
         // Formspree — remplace YOUR_FORM_ID par ton ID après inscription sur formspree.io
-        const response = await fetch('https://formspree.io/f/xdkonkzb', {
+        const response = await fetch('https://formspree.io/f/maqzgrkn', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({ name, email, subject: subject || 'Contact portfolio', message })
